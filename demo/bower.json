@@ -21,7 +21,9 @@
     "angular-gantt": ">=1.2",
     "moment-range": "~2.2.0",
     "css-element-queries": "~0.3.0",
-    "jsplumb": "<2.2.0"
+    "jsplumb": "<2.2.0",
+    "jquery.pointer-events-polyfill": "^0.2.4",
+    "jquery": "^3.1.1"
   },
   "overrides": {
     "bootstrap": {

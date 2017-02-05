@@ -1,0 +1,19 @@
+.gantt-task-foreground-sections {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+}
+
+.gantt-task-sections {
+    position: absolute;
+    overflow: hidden;
+    bottom: 0px;
+    height: 2em;
+}
+
+.gantt-task-sections .gantt-task-section {
+    display: inline-block;
+    height: 100%;
+    width: 50px;
+}

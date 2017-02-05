@@ -666,10 +666,6 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
                             var foregroundElement = taskScope.task.getForegroundElement();
 
-                            // IE<11 doesn't support `pointer-events: none`
-                            // So task content element must be added to support moving properly.
-                            var contentElement = taskScope.task.getContentElement();
-
                             var onPressEvents = function(evt) {
                                 evt.preventDefault();
                                 if (_hasTouch) {
@@ -699,7 +695,6 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                                 }
                             };
                             foregroundElement.on(_pressEvents, onPressEvents);
-                            contentElement.on(_pressEvents, onPressEvents);
 
                             var onMousemove = function (evt) {
                                 var taskMovable = taskScope.task.model.movable;
@@ -720,15 +715,12 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                                     var mode = getMoveMode(taskOffsetX);
                                     if (mode !== '' && mode !== 'M') {
                                         foregroundElement.css('cursor', getCursor(mode));
-                                        contentElement.css('cursor', getCursor(mode));
                                     } else {
                                         foregroundElement.css('cursor', '');
-                                        contentElement.css('cursor', '');
                                     }
                                 }
                             };
                             foregroundElement.on('mousemove', onMousemove);
-                            contentElement.on('mousemove', onMousemove);
 
                             var handleMove = function(evt) {
                                 if (taskScope.task.isMoving && !taskScope.destroyed) {
