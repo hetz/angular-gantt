@@ -3,7 +3,7 @@
     angular.module('gantt').directive('ganttScrollableHeader', ['GanttDirectiveBuilder', 'ganttLayout', function(Builder, layout) {
         var builder = new Builder('ganttScrollableHeader');
         builder.controller = function($scope) {
-            var scrollBarWidth = layout.getScrollBarWidth();
+            // var scrollBarWidth = layout.getScrollBarWidth();
             //var oldMaxHeightActivated = false;
             $scope.getScrollableHeaderCss = function() {
                 var css = {};
@@ -14,7 +14,8 @@
                 var bodySmallerThanGantt = $scope.gantt.width === 0 ? false: $scope.gantt.width < $scope.gantt.getWidth() - $scope.gantt.side.getWidth();
 
                 if (columnWidth !== undefined && bodySmallerThanGantt) {
-                    css.width = ($scope.gantt.width - vScrollbarWidth + this.gantt.scroll.getBordersWidth()) + 'px';
+                    css.width = ($scope.gantt.width + this.gantt.scroll.getBordersWidth()) + 'px';
+                    // css.width = ($scope.gantt.width - vScrollbarWidth + this.gantt.scroll.getBordersWidth()) + 'px';
                 } else if (maxHeightActivated) {
                     css.width = $scope.gantt.getWidth() - $scope.gantt.side.getWidth() + 'px';
                     // css.width = $scope.gantt.getWidth() - $scope.gantt.side.getWidth() - vScrollbarWidth + 'px';
