@@ -4826,10 +4826,10 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                 var bodySmallerThanGantt = $scope.gantt.width === 0 ? false: $scope.gantt.width < $scope.gantt.getWidth() - $scope.gantt.side.getWidth();
 
                 if (columnWidth !== undefined && bodySmallerThanGantt) {
-                    css.width = ($scope.gantt.width + this.gantt.scroll.getBordersWidth()) + 'px';
+                    css.width = ($scope.gantt.width + this.gantt.scroll.getBordersWidth()) - 1 + 'px';
                     // css.width = ($scope.gantt.width - vScrollbarWidth + this.gantt.scroll.getBordersWidth()) + 'px';
                 } else if (maxHeightActivated) {
-                    css.width = $scope.gantt.getWidth() - $scope.gantt.side.getWidth() + 'px';
+                    css.width = $scope.gantt.getWidth() - $scope.gantt.side.getWidth() - 1 + 'px';
                     // css.width = $scope.gantt.getWidth() - $scope.gantt.side.getWidth() - vScrollbarWidth + 'px';
                 }
 
