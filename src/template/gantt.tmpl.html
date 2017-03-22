@@ -76,7 +76,7 @@
 
     <!-- Header columns template -->
     <script type="text/ng-template" id="template/ganttHeaderColumns.tmpl.html">
-        <div ng-transclude class="gantt-header-columns"
+        <div ng-transclude class="gantt-header-columns gantt-scrollable--receiver-horizontal"
               gantt-horizontal-scroll-receiver></div>
     </script>
 
@@ -184,7 +184,7 @@
                 <div ng-show="$parent.ganttHeaderHeight" class="gantt-header-row gantt-side-header-row"></div>
             </div>
             <div class="gantt-side-background-body" ng-style="getMaxHeightCss()">
-                <div gantt-vertical-scroll-receiver>
+                <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>
                     <div class="gantt-row gantt-row-height "
                          ng-class-odd="'gantt-row-odd'"
                          ng-class-even="'gantt-row-even'"

@@ -120,7 +120,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 angular.module('gantt.labels.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/labels/labelsBody.tmpl.html',
         '<div class="gantt-labels-body" ng-style="getLabelsCss()">\n' +
-        '    <div gantt-vertical-scroll-receiver>\n' +
+        '    <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>\n' +
         '        <div ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id">\n' +
         '            <div gantt-row-label\n' +
         '                 class="gantt-row-label gantt-row-height"\n' +

@@ -4477,18 +4477,22 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 }());
 
 
-(function(){
+(function () {
     'use strict';
-    angular.module('gantt').directive('ganttScrollManager', function() {
+    angular.module('gantt').directive('ganttScrollManager', function () {
         // The element with this attribute will scroll at the same time as the scrollSender element
 
         return {
             restrict: 'A',
             scope: {},
-            controller: ['$scope', function($scope) {
+            controller: ['$scope', function ($scope) {
                 $scope.horizontal = [];
                 $scope.vertical = [];
+                $scope.scrollSender = null;
 
+                this.registerScrollSender = function (element) {
+                    $scope.scrollSender = element[0];
+                };
                 this.registerVerticalReceiver = function (element) {
                     element.css('position', 'relative');
                     $scope.vertical.push(element[0]);
@@ -4499,11 +4503,14 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                     $scope.horizontal.push(element[0]);
                 };
 
-                this.getHorizontalRecievers = function() {
+                this.getScrollSender = function () {
+                    return $scope.scrollSender;
+                };
+                this.getHorizontalRecievers = function () {
                     return $scope.horizontal;
                 };
 
-                this.getVerticalRecievers = function() {
+                this.getVerticalRecievers = function () {
                     return $scope.vertical;
                 };
             }]
@@ -4521,6 +4528,8 @@ Github: https://github.com/angular-gantt/angular-gantt.git
             restrict: 'A',
             require: ['^gantt', '^ganttScrollManager'],
             link: function(scope, element, attrs, controllers) {
+                controllers[1].registerScrollSender(element);
+
                 var el = element[0];
 
                 var updateListeners = function() {
@@ -4562,19 +4571,28 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 }());
 
 
-(function(){
+(function () {
     'use strict';
-    angular.module('gantt').directive('ganttVerticalScrollReceiver', function() {
+    angular.module('gantt').directive('ganttVerticalScrollReceiver', ['ganttDebounce', function (debounce) {
         // The element with this attribute will scroll at the same time as the scrollSender element
 
         return {
             restrict: 'A',
             require: '^ganttScrollManager',
-            link: function(scope, element, attrs, ganttScrollManagerCtrl) {
+            link: function (scope, element, attrs, ganttScrollManagerCtrl) {
+                var updateListeners = function (e, delta) {
+                    var scrollSender = ganttScrollManagerCtrl.getScrollSender();
+                    var speed = e.deltaFactor === 1 ? 3 : e.deltaFactor;
+                    $(scrollSender).clearQueue()
+                        .animate({scrollTop: scrollSender.scrollTop - (delta * speed)}, 'fast');
+                    e.preventDefault();
+                };
+                element.bind('mousewheel', debounce(updateListeners, 5));
+
                 ganttScrollManagerCtrl.registerVerticalReceiver(element);
             }
         };
-    });
+    }]);
 }());
 
 
@@ -4848,14 +4866,15 @@ Github: https://github.com/angular-gantt/angular-gantt.git
     angular.module('gantt').directive('ganttSideBackground', ['GanttDirectiveBuilder', 'ganttLayout', function(Builder, layout) {
         var builder = new Builder('ganttSideBackground');
         builder.controller = function($scope) {
-            var hScrollBarHeight = layout.getScrollBarHeight();
+            // var hScrollBarHeight = layout.getScrollBarHeight();
 
             $scope.getMaxHeightCss = function() {
                 var css = {};
 
                 if ($scope.maxHeight) {
-                    var bodyScrollBarHeight = $scope.gantt.scroll.isHScrollbarVisible() ? hScrollBarHeight : 0;
-                    css['max-height'] = $scope.maxHeight - bodyScrollBarHeight - $scope.gantt.header.getHeight() + 'px';
+                    // var bodyScrollBarHeight = $scope.gantt.scroll.isHScrollbarVisible() ? hScrollBarHeight : 0;
+                    css['max-height'] = $scope.maxHeight - $scope.gantt.header.getHeight() + 'px';
+                    // css['max-height'] = $scope.maxHeight - bodyScrollBarHeight - $scope.gantt.header.getHeight() + 'px';
                 }
 
                 return css;
@@ -5437,7 +5456,7 @@ angular.module('gantt.templates', []).run(['$templateCache', function ($template
         '\n' +
         '    <!-- Header columns template -->\n' +
         '    <script type="text/ng-template" id="template/ganttHeaderColumns.tmpl.html">\n' +
-        '        <div ng-transclude class="gantt-header-columns"\n' +
+        '        <div ng-transclude class="gantt-header-columns gantt-scrollable--receiver-horizontal"\n' +
         '              gantt-horizontal-scroll-receiver></div>\n' +
         '    </script>\n' +
         '\n' +
@@ -5545,7 +5564,7 @@ angular.module('gantt.templates', []).run(['$templateCache', function ($template
         '                <div ng-show="$parent.ganttHeaderHeight" class="gantt-header-row gantt-side-header-row"></div>\n' +
         '            </div>\n' +
         '            <div class="gantt-side-background-body" ng-style="getMaxHeightCss()">\n' +
-        '                <div gantt-vertical-scroll-receiver>\n' +
+        '                <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>\n' +
         '                    <div class="gantt-row gantt-row-height "\n' +
         '                         ng-class-odd="\'gantt-row-odd\'"\n' +
         '                         ng-class-even="\'gantt-row-even\'"\n' +

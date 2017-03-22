@@ -89,14 +89,15 @@ Github: https://github.com/angular-gantt/angular-gantt.git
     angular.module('gantt.table').directive('ganttSideContentTable', ['GanttDirectiveBuilder', 'ganttLayout', function(Builder, layout) {
         var builder = new Builder('ganttSideContentTable', 'plugins/table/sideContentTable.tmpl.html');
         builder.controller = function($scope) {
-            var hScrollBarHeight = layout.getScrollBarHeight();
+            // var hScrollBarHeight = layout.getScrollBarHeight();
 
             $scope.getMaxHeightCss = function() {
                 var css = {};
 
                 if ($scope.maxHeight) {
-                    var bodyScrollBarHeight = $scope.gantt.scroll.isHScrollbarVisible() ? hScrollBarHeight : 0;
-                    css['max-height'] = $scope.maxHeight - bodyScrollBarHeight - $scope.gantt.header.getHeight() + 'px';
+                    // var bodyScrollBarHeight = $scope.gantt.scroll.isHScrollbarVisible() ? hScrollBarHeight : 0;
+                    css['max-height'] = $scope.maxHeight - $scope.gantt.header.getHeight() + 'px';
+                    // css['max-height'] = $scope.maxHeight - bodyScrollBarHeight - $scope.gantt.header.getHeight() + 'px';
                 }
 
                 return css;
@@ -192,7 +193,7 @@ angular.module('gantt.table.templates', []).run(['$templateCache', function ($te
         '        </div>\n' +
         '\n' +
         '        <div class="gantt-table-content" ng-style="getMaxHeightCss()">\n' +
-        '            <div gantt-vertical-scroll-receiver>\n' +
+        '            <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>\n' +
         '                <div class="gantt-table-row" ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id" ng-controller="TableColumnRowController">\n' +
         '                    <div gantt-row-label class="gantt-row-label gantt-row-height" ng-class="row.model.classes" ng-style="{\'height\': row.model.height}">\n' +
         '                        <div class="gantt-valign-container">\n' +

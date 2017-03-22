@@ -7,6 +7,8 @@
             restrict: 'A',
             require: ['^gantt', '^ganttScrollManager'],
             link: function(scope, element, attrs, controllers) {
+                controllers[1].registerScrollSender(element);
+
                 var el = element[0];
 
                 var updateListeners = function() {

@@ -1,15 +1,19 @@
-(function(){
+(function () {
     'use strict';
-    angular.module('gantt').directive('ganttScrollManager', function() {
+    angular.module('gantt').directive('ganttScrollManager', function () {
         // The element with this attribute will scroll at the same time as the scrollSender element
 
         return {
             restrict: 'A',
             scope: {},
-            controller: ['$scope', function($scope) {
+            controller: ['$scope', function ($scope) {
                 $scope.horizontal = [];
                 $scope.vertical = [];
+                $scope.scrollSender = null;
 
+                this.registerScrollSender = function (element) {
+                    $scope.scrollSender = element[0];
+                };
                 this.registerVerticalReceiver = function (element) {
                     element.css('position', 'relative');
                     $scope.vertical.push(element[0]);
@@ -20,11 +24,14 @@
                     $scope.horizontal.push(element[0]);
                 };
 
-                this.getHorizontalRecievers = function() {
+                this.getScrollSender = function () {
+                    return $scope.scrollSender;
+                };
+                this.getHorizontalRecievers = function () {
                     return $scope.horizontal;
                 };
 
-                this.getVerticalRecievers = function() {
+                this.getVerticalRecievers = function () {
                     return $scope.vertical;
                 };
             }]

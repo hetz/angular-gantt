@@ -376,14 +376,15 @@ Github: https://github.com/angular-gantt/angular-gantt.git
     angular.module('gantt.tree').directive('ganttTreeBody', ['GanttDirectiveBuilder', 'ganttLayout', function(Builder, layout) {
         var builder = new Builder('ganttTreeBody', 'plugins/tree/treeBody.tmpl.html');
         builder.controller = function($scope) {
-            var hScrollBarHeight = layout.getScrollBarHeight();
+            // var hScrollBarHeight = layout.getScrollBarHeight();
 
             $scope.getLabelsCss = function() {
                 var css = {};
 
                 if ($scope.maxHeight) {
-                    var bodyScrollBarHeight = $scope.gantt.scroll.isHScrollbarVisible() ? hScrollBarHeight : 0;
-                    css['max-height'] = $scope.maxHeight - bodyScrollBarHeight - $scope.gantt.header.getHeight() + 'px';
+                    // var bodyScrollBarHeight = $scope.gantt.scroll.isHScrollbarVisible() ? hScrollBarHeight : 0;
+                    css['max-height'] = $scope.maxHeight - $scope.gantt.header.getHeight() + 'px';
+                    // css['max-height'] = $scope.maxHeight - bodyScrollBarHeight - $scope.gantt.header.getHeight() + 'px';
                 }
 
                 return css;
@@ -415,7 +416,7 @@ angular.module('gantt.tree.templates', []).run(['$templateCache', function ($tem
         '');
     $templateCache.put('plugins/tree/treeBody.tmpl.html',
         '<div class="gantt-tree-body" ng-style="getLabelsCss()">\n' +
-        '    <div gantt-vertical-scroll-receiver>\n' +
+        '    <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>\n' +
         '        <div class="gantt-row-label-background">\n' +
         '            <div class="gantt-row-label gantt-row-height"\n' +
         '                 ng-class="row.model.classes"\n' +
