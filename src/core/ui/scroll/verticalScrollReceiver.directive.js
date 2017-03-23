@@ -9,9 +9,11 @@
             link: function (scope, element, attrs, ganttScrollManagerCtrl) {
                 var updateListeners = function (e, delta) {
                     var scrollSender = ganttScrollManagerCtrl.getScrollSender();
-                    var speed = e.deltaFactor === 1 ? 3 : e.deltaFactor;
-                    $(scrollSender).clearQueue()
-                        .animate({scrollTop: scrollSender.scrollTop - (delta * speed)}, 'fast');
+                    var speed = e.deltaFactor === 1 ? 4 : e.deltaFactor;
+
+                    scrollSender.scrollTop = scrollSender.scrollTop - (delta * speed);
+                    // $(scrollSender).clearQueue()
+                    //     .animate({scrollTop: scrollSender.scrollTop - (delta * speed)}, 'fast');
                     e.preventDefault();
                 };
                 element.bind('mousewheel', debounce(updateListeners, 5));

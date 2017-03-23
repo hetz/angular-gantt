@@ -12,6 +12,7 @@
 
                 this.options = new Options($scope, {
                     'api': angular.noop,
+                    'eventDelegate': angular.noop,
                     'data': [],
                     'timespans': [],
                     'viewScale': 'day',
@@ -399,7 +400,7 @@
                     }
                     gantt.api.core.raise.rendered(gantt.api);
                 };
-                $timeout(renderedFunction);
+                $timeout(renderedFunction,0,true);
             };
 
             return Gantt;

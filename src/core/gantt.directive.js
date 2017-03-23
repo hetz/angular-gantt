@@ -52,6 +52,7 @@
                 shiftColumnMagnet: '=?',
                 timeFramesMagnet: '=?',
                 data: '=?',
+                eventDelegate: '=?',
                 api: '=?',
                 options: '=?'
             },

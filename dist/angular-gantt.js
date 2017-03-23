@@ -59,6 +59,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                 shiftColumnMagnet: '=?',
                 timeFramesMagnet: '=?',
                 data: '=?',
+                eventDelegate: '=?',
                 api: '=?',
                 options: '=?'
             },
@@ -2037,6 +2038,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
                 this.options = new Options($scope, {
                     'api': angular.noop,
+                    'eventDelegate': angular.noop,
                     'data': [],
                     'timespans': [],
                     'viewScale': 'day',
@@ -2424,7 +2426,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                     }
                     gantt.api.core.raise.rendered(gantt.api);
                 };
-                $timeout(renderedFunction);
+                $timeout(renderedFunction,0,true);
             };
 
             return Gantt;
@@ -4161,6 +4163,34 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 }());
 
 
+(function () {
+    'use strict';
+    angular.module('gantt').directive('ganttEventManager', function () {
+        // The element with this attribute will scroll at the same time as the scrollSender element
+
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs, controllers) {
+                if (angular.isArray(scope.eventDelegate)) {
+                    scope.eventDelegate.forEach(function (delegateItem) {
+                        element.delegate(delegateItem.target, delegateItem.type, delegateItem.fn);
+                    });
+                    // element.delegate('.gantt-row', 'mouseover click', function (e) {
+                    //     if (e.type === 'mouseover') {
+                    //         var hoverIndex = angular.element(this).scope().row.$element.index();
+                    //         $('.gantt-row-background--light').removeClass('gantt-row-background--light');
+                    //         $('.gantt-side-background-body .gantt-row .gantt-row-background').eq(hoverIndex).addClass('gantt-row-background--light');
+                    //         $('.gantt-body-background .gantt-row .gantt-row-background').eq(hoverIndex).addClass('gantt-row-background--light');
+                    //     }
+                    // });
+                }
+
+            }
+        };
+    });
+}());
+
+
 (function(){
     'use strict';
     angular.module('gantt').filter('ganttColumnLimit', [ 'ganttBinarySearch', function(bs) {
@@ -4354,19 +4384,32 @@ Github: https://github.com/angular-gantt/angular-gantt.git
     }]);
 }());
 
-(function(){
+(function () {
     'use strict';
-    angular.module('gantt').directive('ganttHorizontalScrollReceiver', function() {
+    angular.module('gantt').directive('ganttHorizontalScrollReceiver', ['ganttDebounce', function (debounce) {
         // The element with this attribute will scroll at the same time as the scrollSender element
 
         return {
             restrict: 'A',
             require: '^ganttScrollManager',
-            link: function(scope, element, attrs, ganttScrollManagerCtrl) {
+            link: function (scope, element, attrs, ganttScrollManagerCtrl) {
+                var updateListeners = function (e, delta) {
+                    var hasSwap = (e.deltaX < -1 || e.deltaX > 1);
+                    if (hasSwap) {
+                        var scrollSender = ganttScrollManagerCtrl.getScrollSender();
+                        var speed = e.deltaFactor === 1 ? 4 : e.deltaFactor;
+                        scrollSender.scrollLeft = scrollSender.scrollLeft - (delta * speed);
+                        // $(scrollSender).clearQueue()
+                        //     .animate({scrollLeft: scrollSender.scrollLeft - (delta * speed)}, 'fast');
+                        e.preventDefault();
+                    }
+                };
+                element.bind('mousewheel', debounce(updateListeners, 5));
+
                 ganttScrollManagerCtrl.registerHorizontalReceiver(element);
             }
         };
-    });
+    }]);
 }());
 
 (function(){
@@ -4582,9 +4625,11 @@ Github: https://github.com/angular-gantt/angular-gantt.git
             link: function (scope, element, attrs, ganttScrollManagerCtrl) {
                 var updateListeners = function (e, delta) {
                     var scrollSender = ganttScrollManagerCtrl.getScrollSender();
-                    var speed = e.deltaFactor === 1 ? 3 : e.deltaFactor;
-                    $(scrollSender).clearQueue()
-                        .animate({scrollTop: scrollSender.scrollTop - (delta * speed)}, 'fast');
+                    var speed = e.deltaFactor === 1 ? 4 : e.deltaFactor;
+
+                    scrollSender.scrollTop = scrollSender.scrollTop - (delta * speed);
+                    // $(scrollSender).clearQueue()
+                    //     .animate({scrollTop: scrollSender.scrollTop - (delta * speed)}, 'fast');
                     e.preventDefault();
                 };
                 element.bind('mousewheel', debounce(updateListeners, 5));
@@ -5378,7 +5423,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
 angular.module('gantt.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('template/gantt.tmpl.html',
-        '<div class="gantt unselectable" ng-cloak gantt-scroll-manager gantt-element-width-listener="ganttElementWidth">\n' +
+        '<div class="gantt unselectable" ng-cloak gantt-event-manager gantt-scroll-manager gantt-element-width-listener="ganttElementWidth">\n' +
         '    <gantt-side>\n' +
         '        <gantt-side-background>\n' +
         '        </gantt-side-background>\n' +
