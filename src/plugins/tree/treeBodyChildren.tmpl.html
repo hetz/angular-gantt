@@ -4,7 +4,7 @@
      ng-style="{'height': row.model.height}">
     <div class="gantt-valign-container">
         <div class="gantt-valign-content">
-            <a ng-disabled="isCollapseDisabled()" data-nodrag
+            <a ng-if="childrenRows!=null" ng-disabled="isCollapseDisabled()" data-nodrag
                class="gantt-tree-handle-button btn btn-xs"
                ng-class="{'gantt-tree-collapsed': collapsed, 'gantt-tree-expanded': !collapsed}"
                ng-click="!isCollapseDisabled() && toggle()"><span
@@ -17,8 +17,8 @@
         </div>
     </div>
 </div>
-<ol ui-tree-nodes ng-class="{hidden: collapsed}" ng-model="childrenRows">
-    <li ng-repeat="row in childrenRows" ui-tree-node>
+<ol ng-if="childrenRows!=null" ui-tree-nodes ng-class="{hidden: collapsed}" ng-model="childrenRows">
+    <li ng-repeat="row in childrenRows track by row.model.id" ui-tree-node>
         <div ng-include="'plugins/tree/treeBodyChildren.tmpl.html'"></div>
     </li>
 </ol>
