@@ -3940,6 +3940,9 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                     return true;
                 }
                 return false;
+            },
+            isInArray: function isInArray(arr, item) {
+                return ~arr.indexOf(item) !== 0;
             }
         };
     }]);
@@ -4166,8 +4169,6 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 (function () {
     'use strict';
     angular.module('gantt').directive('ganttEventManager', function () {
-        // The element with this attribute will scroll at the same time as the scrollSender element
-
         return {
             restrict: 'A',
             link: function (scope, element, attrs, controllers) {
@@ -4175,16 +4176,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                     scope.eventDelegate.forEach(function (delegateItem) {
                         element.delegate(delegateItem.target, delegateItem.type, delegateItem.fn);
                     });
-                    // element.delegate('.gantt-row', 'mouseover click', function (e) {
-                    //     if (e.type === 'mouseover') {
-                    //         var hoverIndex = angular.element(this).scope().row.$element.index();
-                    //         $('.gantt-row-background--light').removeClass('gantt-row-background--light');
-                    //         $('.gantt-side-background-body .gantt-row .gantt-row-background').eq(hoverIndex).addClass('gantt-row-background--light');
-                    //         $('.gantt-body-background .gantt-row .gantt-row-background').eq(hoverIndex).addClass('gantt-row-background--light');
-                    //     }
-                    // });
                 }
-
             }
         };
     });

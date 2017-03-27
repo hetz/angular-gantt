@@ -74,6 +74,10 @@ Take care to define a non-recursive hierarchy model, and check that a row is att
     [filter-row](../configuration/attributes.md#) filter process.
 
     default: `false`
+    
+- #### pre-collapsed-root-rows
+    Pre-collapse root rows.
+    default: `[]`
 
 ## API
 

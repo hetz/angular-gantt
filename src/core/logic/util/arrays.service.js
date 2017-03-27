@@ -77,6 +77,9 @@
                     return true;
                 }
                 return false;
+            },
+            isInArray: function isInArray(arr, item) {
+                return ~arr.indexOf(item) !== 0;
             }
         };
     }]);

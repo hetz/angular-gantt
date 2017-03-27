@@ -19,7 +19,8 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                 header: '=?',
                 content: '=?',
                 headerContent: '=?',
-                keepAncestorOnFilterRow: '=?'
+                keepAncestorOnFilterRow: '=?',
+                preCollapsedRows: '=?'
             },
             link: function(scope, element, attrs, ganttCtrl) {
                 var api = ganttCtrl.gantt.api;
@@ -45,6 +46,10 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
                 if (scope.keepAncestorOnFilterRow === undefined) {
                     scope.keepAncestorOnFilterRow = false;
+                }
+
+                if (scope.preCollapsedRows === undefined) {
+                    scope.preCollapsedRows = [];
                 }
 
                 api.directives.on.new(scope, function(directiveName, sideContentScope, sideContentElement) {
@@ -90,11 +95,15 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
 (function() {
     'use strict';
-    angular.module('gantt.tree').controller('GanttTreeController', ['$scope', '$filter', 'GanttHierarchy', function($scope, $filter, Hierarchy) {
+    angular.module('gantt.tree').controller('GanttTreeController', ['$scope', '$filter', 'GanttHierarchy', 'ganttArrays', function($scope, $filter, Hierarchy, arrays) {
         $scope.rootRows = [];
 
         $scope.getHeader = function() {
             return $scope.pluginScope.header;
+        };
+
+        $scope.toCollapse = function(row) {
+            return arrays.isInArray($scope.pluginScope.preCollapsedRows, row.model.name);
         };
 
         var hierarchy = new Hierarchy();
@@ -428,6 +437,7 @@ angular.module('gantt.tree.templates', []).run(['$templateCache', function ($tem
         '        <div ui-tree ng-controller="GanttUiTreeController" data-drag-enabled="false" data-empty-place-holder-enabled="false">\n' +
         '            <ol class="gantt-tree-root" ui-tree-nodes ng-model="rootRows">\n' +
         '                <li ng-repeat="row in rootRows" ui-tree-node\n' +
+        '                    data-collapsed="toCollapse(row)"\n' +
         '                    ng-include="\'plugins/tree/treeBodyChildren.tmpl.html\'">\n' +
         '                </li>\n' +
         '            </ol>\n' +
