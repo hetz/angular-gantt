@@ -473,7 +473,7 @@ angular.module('gantt.tree.templates', []).run(['$templateCache', function ($tem
         '');
     $templateCache.put('plugins/tree/treeHeader.tmpl.html',
         '<div class="gantt-tree-header" ng-style="{height: $parent.ganttHeaderHeight + \'px\'}">\n' +
-        '    <div ng-if="$parent.ganttHeaderHeight" class="gantt-row-label gantt-row-label-header gantt-tree-row gantt-tree-header-row"><span class="gantt-label-text" gantt-bind-compile-html="getHeaderContent()"/></div>\n' +
+        '    <div ng-if="$parent.ganttHeaderHeight" class="gantt-row-label gantt-row-label-header gantt-tree-row gantt-tree-header-row"><span class="gantt-label-text" gantt-bind-once-compile-html="getHeaderContent()"/></div>\n' +
         '</div>\n' +
         '');
 }]);

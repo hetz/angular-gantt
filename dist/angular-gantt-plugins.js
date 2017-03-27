@@ -4170,7 +4170,7 @@ angular.module('gantt.table.templates', []).run(['$templateCache', function ($te
         '\n' +
         '        <div class="gantt-table-header" ng-style="{height: ganttHeaderHeight + \'px\'}">\n' +
         '            <div ng-show="ganttHeaderHeight" class="gantt-row-label-header gantt-row-label gantt-table-row gantt-table-header-row">\n' +
-        '                <span class="gantt-label-text" gantt-bind-compile-html="getHeaderContent()"/>\n' +
+        '                <span class="gantt-label-text" gantt-bind-once-compile-html="getHeaderContent()"/>\n' +
         '            </div>\n' +
         '        </div>\n' +
         '\n' +
@@ -4266,7 +4266,7 @@ angular.module('gantt.tree.templates', []).run(['$templateCache', function ($tem
         '');
     $templateCache.put('plugins/tree/treeHeader.tmpl.html',
         '<div class="gantt-tree-header" ng-style="{height: $parent.ganttHeaderHeight + \'px\'}">\n' +
-        '    <div ng-if="$parent.ganttHeaderHeight" class="gantt-row-label gantt-row-label-header gantt-tree-row gantt-tree-header-row"><span class="gantt-label-text" gantt-bind-compile-html="getHeaderContent()"/></div>\n' +
+        '    <div ng-if="$parent.ganttHeaderHeight" class="gantt-row-label gantt-row-label-header gantt-tree-row gantt-tree-header-row"><span class="gantt-label-text" gantt-bind-once-compile-html="getHeaderContent()"/></div>\n' +
         '</div>\n' +
         '');
 }]);
