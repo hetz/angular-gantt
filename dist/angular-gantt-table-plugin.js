@@ -198,7 +198,7 @@ angular.module('gantt.table.templates', []).run(['$templateCache', function ($te
         '                    <div gantt-row-label class="gantt-row-label gantt-row-height" ng-class="row.model.classes" ng-style="{\'height\': row.model.height}">\n' +
         '                        <div class="gantt-valign-container">\n' +
         '                            <div class="gantt-valign-content">\n' +
-        '                                <span class="gantt-label-text" gantt-bind-compile-html="getRowContent()"></span>\n' +
+        '                                <span class="gantt-label-text" gantt-bind-once-compile-html="getRowContent();"></span>\n' +
         '                            </div>\n' +
         '                        </div>\n' +
         '                    </div>\n' +

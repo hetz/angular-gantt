@@ -5236,6 +5236,22 @@ Github: https://github.com/angular-gantt/angular-gantt.git
     }]);
 }());
 
+(function () {
+    'use strict';
+    angular.module('gantt').directive('ganttBindOnceCompileHtml', ['$compile', function ($compile) {
+        return {
+            restrict: 'A',
+            require: '^gantt',
+            link: function (scope, element, attrs, ganttCtrl) {
+                scope.scope = ganttCtrl.gantt.$scope.$parent;
+                var value = scope.$eval(attrs.ganttBindOnceCompileHtml);
+                element.html(value);
+                $compile(element.contents())(scope);
+            }
+        };
+    }]);
+}());
+
 (function(){
     'use strict';
     angular.module('gantt').service('ganttLayout', ['$document', function($document) {
@@ -5566,7 +5582,7 @@ angular.module('gantt.templates', []).run(['$templateCache', function ($template
         '\n' +
         '    <!-- Task content template -->\n' +
         '    <script type="text/ng-template" id="template/ganttTaskContent.tmpl.html">\n' +
-        '        <div class="gantt-task-content" unselectable="on"><span unselectable="on" gantt-bind-compile-html="getTaskContent()"/></div>\n' +
+        '        <div class="gantt-task-content" unselectable="on"><span unselectable="on" gantt-bind-once-compile-html="getTaskContent()"/></div>\n' +
         '    </script>\n' +
         '\n' +
         '\n' +

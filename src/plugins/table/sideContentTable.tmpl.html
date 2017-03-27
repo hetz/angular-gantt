@@ -14,7 +14,7 @@
                     <div gantt-row-label class="gantt-row-label gantt-row-height" ng-class="row.model.classes" ng-style="{'height': row.model.height}">
                         <div class="gantt-valign-container">
                             <div class="gantt-valign-content">
-                                <span class="gantt-label-text" gantt-bind-compile-html="getRowContent()"></span>
+                                <span class="gantt-label-text" gantt-bind-once-compile-html="getRowContent();"></span>
                             </div>
                         </div>
                     </div>
