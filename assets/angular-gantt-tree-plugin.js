@@ -427,9 +427,7 @@ angular.module('gantt.tree.templates', []).run(['$templateCache', function ($tem
         '<div class="gantt-tree-body" ng-style="getLabelsCss()">\n' +
         '    <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>\n' +
         '        <div class="gantt-row-label-background">\n' +
-        '            <div class="gantt-row-label gantt-row-height"\n' +
-        '                 ng-class="row.model.classes"\n' +
-        '                 ng-style="{\'height\': row.model.height}"\n' +
+        '            <div class="gantt-row-label gantt-row-height {{::row.model.classes}}"\n' +
         '                 ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id">\n' +
         '                &nbsp;\n' +
         '            </div>\n' +
@@ -447,9 +445,7 @@ angular.module('gantt.tree.templates', []).run(['$templateCache', function ($tem
         '');
     $templateCache.put('plugins/tree/treeBodyChildren.tmpl.html',
         '<div ng-controller="GanttTreeNodeController"\n' +
-        '     class="gantt-row-label gantt-row-height"\n' +
-        '     ng-class="row.model.classes"\n' +
-        '     ng-style="{\'height\': row.model.height}">\n' +
+        '     class="gantt-row-label gantt-row-height {{::row.model.classes}}">\n' +
         '    <div class="gantt-valign-container">\n' +
         '        <div class="gantt-valign-content">\n' +
         '            <a ng-if="childrenRows!=null" ng-disabled="isCollapseDisabled()" data-nodrag\n' +

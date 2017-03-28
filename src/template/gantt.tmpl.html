@@ -155,11 +155,7 @@
 
     <!-- Row background template -->
     <script type="text/ng-template" id="template/ganttRowBackground.tmpl.html">
-        <div class="gantt-row gantt-row-height"
-             ng-class="row.model.classes"
-             ng-class-odd="'gantt-row-odd'"
-             ng-class-even="'gantt-row-even'"
-             ng-style="{'height': row.model.height}">
+        <div class="gantt-row gantt-row-height {{::row.model.classes}}">
             <div class="gantt-row-background"
                  ng-style="{'background-color': row.model.color}">
             </div>
@@ -168,11 +164,7 @@
 
     <!-- Row template -->
     <script type="text/ng-template" id="template/ganttRow.tmpl.html">
-        <div class="gantt-row gantt-row-height"
-             ng-class="row.model.classes"
-             ng-class-odd="'gantt-row-odd'"
-             ng-class-even="'gantt-row-even'"
-             ng-style="{'height': row.model.height}">
+        <div class="gantt-row gantt-row-height {{::row.model.classes}}">
             <div ng-transclude class="gantt-row-content"></div>
         </div>
     </script>
@@ -185,12 +177,8 @@
             </div>
             <div class="gantt-side-background-body" ng-style="getMaxHeightCss()">
                 <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>
-                    <div class="gantt-row gantt-row-height "
-                         ng-class-odd="'gantt-row-odd'"
-                         ng-class-even="'gantt-row-even'"
-                         ng-class="row.model.classes"
-                         ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id"
-                         ng-style="{'height': row.model.height}">
+                    <div class="gantt-row gantt-row-height {{::row.model.classes}}"
+                         ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id">
                         <div class="gantt-row-label gantt-row-background"
                              ng-style="{'background-color': row.model.color}">
                         </div>

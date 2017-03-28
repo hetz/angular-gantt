@@ -123,9 +123,7 @@ angular.module('gantt.labels.templates', []).run(['$templateCache', function ($t
         '    <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>\n' +
         '        <div ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id">\n' +
         '            <div gantt-row-label\n' +
-        '                 class="gantt-row-label gantt-row-height"\n' +
-        '                 ng-class="row.model.classes"\n' +
-        '                 ng-style="{\'height\': row.model.height}">\n' +
+        '                 class="gantt-row-label gantt-row-height {{::row.model.classes}}">\n' +
         '                <span class="gantt-label-text">{{row.model.name}}</span>\n' +
         '            </div>\n' +
         '        </div>\n' +

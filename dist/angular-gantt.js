@@ -5588,11 +5588,7 @@ angular.module('gantt.templates', []).run(['$templateCache', function ($template
         '\n' +
         '    <!-- Row background template -->\n' +
         '    <script type="text/ng-template" id="template/ganttRowBackground.tmpl.html">\n' +
-        '        <div class="gantt-row gantt-row-height"\n' +
-        '             ng-class="row.model.classes"\n' +
-        '             ng-class-odd="\'gantt-row-odd\'"\n' +
-        '             ng-class-even="\'gantt-row-even\'"\n' +
-        '             ng-style="{\'height\': row.model.height}">\n' +
+        '        <div class="gantt-row gantt-row-height {{::row.model.classes}}">\n' +
         '            <div class="gantt-row-background"\n' +
         '                 ng-style="{\'background-color\': row.model.color}">\n' +
         '            </div>\n' +
@@ -5601,11 +5597,7 @@ angular.module('gantt.templates', []).run(['$templateCache', function ($template
         '\n' +
         '    <!-- Row template -->\n' +
         '    <script type="text/ng-template" id="template/ganttRow.tmpl.html">\n' +
-        '        <div class="gantt-row gantt-row-height"\n' +
-        '             ng-class="row.model.classes"\n' +
-        '             ng-class-odd="\'gantt-row-odd\'"\n' +
-        '             ng-class-even="\'gantt-row-even\'"\n' +
-        '             ng-style="{\'height\': row.model.height}">\n' +
+        '        <div class="gantt-row gantt-row-height {{::row.model.classes}}">\n' +
         '            <div ng-transclude class="gantt-row-content"></div>\n' +
         '        </div>\n' +
         '    </script>\n' +
@@ -5618,12 +5610,8 @@ angular.module('gantt.templates', []).run(['$templateCache', function ($template
         '            </div>\n' +
         '            <div class="gantt-side-background-body" ng-style="getMaxHeightCss()">\n' +
         '                <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>\n' +
-        '                    <div class="gantt-row gantt-row-height "\n' +
-        '                         ng-class-odd="\'gantt-row-odd\'"\n' +
-        '                         ng-class-even="\'gantt-row-even\'"\n' +
-        '                         ng-class="row.model.classes"\n' +
-        '                         ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id"\n' +
-        '                         ng-style="{\'height\': row.model.height}">\n' +
+        '                    <div class="gantt-row gantt-row-height {{::row.model.classes}}"\n' +
+        '                         ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id">\n' +
         '                        <div class="gantt-row-label gantt-row-background"\n' +
         '                             ng-style="{\'background-color\': row.model.color}">\n' +
         '                        </div>\n' +

@@ -195,7 +195,7 @@ angular.module('gantt.table.templates', []).run(['$templateCache', function ($te
         '        <div class="gantt-table-content" ng-style="getMaxHeightCss()">\n' +
         '            <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>\n' +
         '                <div class="gantt-table-row" ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id" ng-controller="TableColumnRowController">\n' +
-        '                    <div gantt-row-label class="gantt-row-label gantt-row-height" ng-class="row.model.classes" ng-style="{\'height\': row.model.height}">\n' +
+        '                    <div gantt-row-label class="gantt-row-label gantt-row-height {{::row.model.classes}}">\n' +
         '                        <div class="gantt-valign-container">\n' +
         '                            <div class="gantt-valign-content">\n' +
         '                                <span class="gantt-label-text" gantt-bind-once-compile-html="getRowContent();"></span>\n' +

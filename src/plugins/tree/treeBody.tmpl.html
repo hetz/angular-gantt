@@ -1,9 +1,7 @@
 <div class="gantt-tree-body" ng-style="getLabelsCss()">
     <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>
         <div class="gantt-row-label-background">
-            <div class="gantt-row-label gantt-row-height"
-                 ng-class="row.model.classes"
-                 ng-style="{'height': row.model.height}"
+            <div class="gantt-row-label gantt-row-height {{::row.model.classes}}"
                  ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id">
                 &nbsp;
             </div>

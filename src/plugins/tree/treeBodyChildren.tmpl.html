@@ -1,7 +1,5 @@
 <div ng-controller="GanttTreeNodeController"
-     class="gantt-row-label gantt-row-height"
-     ng-class="row.model.classes"
-     ng-style="{'height': row.model.height}">
+     class="gantt-row-label gantt-row-height {{::row.model.classes}}">
     <div class="gantt-valign-container">
         <div class="gantt-valign-content">
             <a ng-if="childrenRows!=null" ng-disabled="isCollapseDisabled()" data-nodrag
