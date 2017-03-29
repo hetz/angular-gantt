@@ -1,7 +1,7 @@
 <div ng-controller="GanttTreeNodeController"
      class="gantt-row-label gantt-row-height {{::row.model.classes}}">
-    <div class="gantt-valign-container">
-        <div class="gantt-valign-content">
+    <!--<div class="gantt-valign-container">-->
+        <!--<div class="gantt-valign-content">-->
             <a ng-if="childrenRows!=null" ng-disabled="isCollapseDisabled()" data-nodrag
                class="gantt-tree-handle-button btn btn-xs"
                ng-class="{'gantt-tree-collapsed': collapsed, 'gantt-tree-expanded': !collapsed}"
@@ -12,8 +12,8 @@
                 'gantt-tree-collapsed': collapsed, 'gantt-tree-expanded': !collapsed}"></span>
             </a>
             <span gantt-row-label class="gantt-label-text" gantt-bind-once-compile-html="getRowContent()"/>
-        </div>
-    </div>
+        <!--</div>-->
+    <!--</div>-->
 </div>
 <ol ng-if="childrenRows!=null" ui-tree-nodes ng-class="{hidden: collapsed}" ng-model="childrenRows">
     <li ng-repeat="row in childrenRows track by row.model.id" ui-tree-node>

@@ -12,11 +12,11 @@
             <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>
                 <div class="gantt-table-row" ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id" ng-controller="TableColumnRowController">
                     <div gantt-row-label class="gantt-row-label gantt-row-height {{::row.model.classes}}">
-                        <div class="gantt-valign-container">
-                            <div class="gantt-valign-content">
+                        <!--<div class="gantt-valign-container">-->
+                            <!--<div class="gantt-valign-content">-->
                                 <span class="gantt-label-text" gantt-bind-once-compile-html="getRowContent();"></span>
-                            </div>
-                        </div>
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
                 </div>
             </div>

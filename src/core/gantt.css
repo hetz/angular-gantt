@@ -35,16 +35,16 @@
     white-space: nowrap;
 }
 
-.gantt-valign-container {
-    height: 100%;
-}
+/*.gantt-valign-container {*/
+    /*height: 100%;*/
+/*}*/
 
-.gantt-valign-content {
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
+/*.gantt-valign-content {*/
+    /*position: relative;*/
+    /*top: 50%;*/
+    /*-webkit-transform: translateY(-50%);*/
+    /*transform: translateY(-50%);*/
+/*}*/
 
 .gantt-side-background {
     position: absolute;

@@ -4176,11 +4176,11 @@ angular.module('gantt.table.templates', []).run(['$templateCache', function ($te
         '            <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>\n' +
         '                <div class="gantt-table-row" ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id" ng-controller="TableColumnRowController">\n' +
         '                    <div gantt-row-label class="gantt-row-label gantt-row-height {{::row.model.classes}}">\n' +
-        '                        <div class="gantt-valign-container">\n' +
-        '                            <div class="gantt-valign-content">\n' +
+        '                        <!--<div class="gantt-valign-container">-->\n' +
+        '                            <!--<div class="gantt-valign-content">-->\n' +
         '                                <span class="gantt-label-text" gantt-bind-once-compile-html="getRowContent();"></span>\n' +
-        '                            </div>\n' +
-        '                        </div>\n' +
+        '                            <!--</div>-->\n' +
+        '                        <!--</div>-->\n' +
         '                    </div>\n' +
         '                </div>\n' +
         '            </div>\n' +
@@ -4237,8 +4237,8 @@ angular.module('gantt.tree.templates', []).run(['$templateCache', function ($tem
     $templateCache.put('plugins/tree/treeBodyChildren.tmpl.html',
         '<div ng-controller="GanttTreeNodeController"\n' +
         '     class="gantt-row-label gantt-row-height {{::row.model.classes}}">\n' +
-        '    <div class="gantt-valign-container">\n' +
-        '        <div class="gantt-valign-content">\n' +
+        '    <!--<div class="gantt-valign-container">-->\n' +
+        '        <!--<div class="gantt-valign-content">-->\n' +
         '            <a ng-if="childrenRows!=null" ng-disabled="isCollapseDisabled()" data-nodrag\n' +
         '               class="gantt-tree-handle-button btn btn-xs"\n' +
         '               ng-class="{\'gantt-tree-collapsed\': collapsed, \'gantt-tree-expanded\': !collapsed}"\n' +
@@ -4249,8 +4249,8 @@ angular.module('gantt.tree.templates', []).run(['$templateCache', function ($tem
         '                \'gantt-tree-collapsed\': collapsed, \'gantt-tree-expanded\': !collapsed}"></span>\n' +
         '            </a>\n' +
         '            <span gantt-row-label class="gantt-label-text" gantt-bind-once-compile-html="getRowContent()"/>\n' +
-        '        </div>\n' +
-        '    </div>\n' +
+        '        <!--</div>-->\n' +
+        '    <!--</div>-->\n' +
         '</div>\n' +
         '<ol ng-if="childrenRows!=null" ui-tree-nodes ng-class="{hidden: collapsed}" ng-model="childrenRows">\n' +
         '    <li ng-repeat="row in childrenRows track by row.model.id" ui-tree-node>\n' +
