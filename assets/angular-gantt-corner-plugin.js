@@ -120,12 +120,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
 angular.module('gantt.corner.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/corner/corner.tmpl.html',
-        '<div class="gantt-corner-area-content">\n' +
-        '    <div ng-show="$parent.ganttHeaderHeight" class="gantt-header-row" ng-repeat="header in headers">\n' +
-        '        <div class="gantt-column-header" ><span class="gantt-label-text" gantt-bind-compile-html="getLabelContent(header)"></span></div>\n' +
-        '    </div>\n' +
-        '</div>\n' +
-        '');
+        '<div class="gantt-corner-area-content"><div ng-show="$parent.ganttHeaderHeight" class="gantt-header-row" ng-repeat="header in headers"><div class="gantt-column-header"><span class="gantt-label-text" gantt-bind-compile-html="getLabelContent(header)"></span></div></div></div>');
 }]);
 
 //# sourceMappingURL=angular-gantt-corner-plugin.js.map

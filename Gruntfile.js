@@ -28,7 +28,11 @@
                     quoteChar: '\'',
                     indentString: '    ',
                     module: 'gantt.templates',
-                    singleModule: true
+                    singleModule: true,
+                    htmlmin:{
+                        collapseWhitespace: true,
+                        removeComments:true
+                    }
                 },
                 core: {
                     src: ['src/template/**/*.html'],
