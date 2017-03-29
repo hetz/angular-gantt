@@ -249,7 +249,7 @@ angular.module('gantt.groups.templates', []).run(['$templateCache', function ($t
     $templateCache.put('plugins/groups/taskGroup.tmpl.html',
         '<div ng-controller="GanttGroupController"><div class="gantt-task-group-overview" ng-if="taskGroup.overviewTasks.length > 0"><gantt-task-overview ng-repeat="task in taskGroup.overviewTasks"></gantt-task-overview></div><div class="gantt-task-group-promote" ng-if="taskGroup.row._collapsed && taskGroup.promotedTasks.length > 0"><gantt-task ng-repeat="task in taskGroup.promotedTasks"></gantt-task></div><div class="gantt-task-group" ng-if="taskGroup.showGrouping" ng-style="{\'left\': taskGroup.left + \'px\', \'width\': taskGroup.width + \'px\'}"><div class="gantt-task-group-left-main"></div><div class="gantt-task-group-right-main"></div><div class="gantt-task-group-left-symbol"></div><div class="gantt-task-group-right-symbol"></div></div></div>');
     $templateCache.put('plugins/groups/taskOverview.tmpl.html',
-        '<div class="gantt-task gantt-task-overview" ng-class="task.model.classes"><gantt-task-background></gantt-task-background><gantt-task-content></gantt-task-content><gantt-task-foreground></gantt-task-foreground></div>');
+        '<div class="gantt-task gantt-task-overview {{::task.model.classes}}"><gantt-task-background></gantt-task-background><gantt-task-content></gantt-task-content><gantt-task-foreground></gantt-task-foreground></div>');
 }]);
 
 //# sourceMappingURL=angular-gantt-groups-plugin.js.map

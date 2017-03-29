@@ -2,14 +2,12 @@
      class="gantt-row-label gantt-row-height {{::row.model.classes}}">
     <!--<div class="gantt-valign-container">-->
         <!--<div class="gantt-valign-content">-->
+           <!--ng-class="{'gantt-tree-collapsed': collapsed, 'gantt-tree-expanded': !collapsed}"-->
             <a ng-if="childrenRows!=null" ng-disabled="isCollapseDisabled()" data-nodrag
                class="gantt-tree-handle-button btn btn-xs"
-               ng-class="{'gantt-tree-collapsed': collapsed, 'gantt-tree-expanded': !collapsed}"
                ng-click="!isCollapseDisabled() && toggle()"><span
-                class="gantt-tree-handle glyphicon glyphicon-chevron-down"
-                ng-class="{
-                'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed,
-                'gantt-tree-collapsed': collapsed, 'gantt-tree-expanded': !collapsed}"></span>
+                class="gantt-tree-handle fa fa-fw fa-caret-down"
+                ng-class="{'fa-caret-right': collapsed, 'fa-caret-down': !collapsed}"></span>
             </a>
             <span gantt-row-label class="gantt-label-text" gantt-bind-once-compile-html="getRowContent()"/>
         <!--</div>-->
