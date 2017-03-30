@@ -14,7 +14,7 @@
     <!--</div>-->
 </div>
 <ol ng-if="childrenRows!=null" ui-tree-nodes ng-class="{hidden: collapsed}" ng-model="childrenRows">
-    <li ng-repeat="row in childrenRows track by row.model.id" ui-tree-node>
+    <li ng-repeat="row in childrenRows track by row.model.id" ui-tree-node data-collapsed="false">
         <div ng-include="'plugins/tree/treeBodyChildren.tmpl.html'"></div>
     </li>
 </ol>
