@@ -3037,22 +3037,43 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                 // Apply current sort to model
                 this.applySort();
                 this.gantt.options.set('sortMode', undefined);
+                // TODO: debugger;
+                // var targetBottomRowIndex = this.rows.indexOf(targetRow)+1;
+                // var targetBottomRow = this.rows[targetBottomRowIndex];
+                // var targetBottomRowIndexPosition = null;
+                // if(targetBottomRow) {
+                //     targetBottomRowIndexPosition = _.get(targetBottomRow, sortMode);
+                // }
+                // var rowIndexPosition = _.get(row,sortMode);
+                //
+                // if (targetRowIndexPosition > -1 && rowIndexPosition > -1 && targetRowIndexPosition !== rowIndexPosition) {
+                //     arrays.moveToIndex(this.rows, rowIndexPosition, targetRowIndexPosition);
+                //     arrays.moveToIndex(this.rowsTaskWatchers, rowIndexPosition, targetRowIndexPosition);
+                //     arrays.moveToIndex(this.gantt.$scope.data, rowIndexPosition, targetRowIndexPosition);
+                //
+                //     this.gantt.api.rows.raise.change(row);
+                //     this.gantt.api.rows.raise.move(row, rowIndexPosition, targetRowIndexPosition);
+                //
+                //     this.updateVisibleObjects();
+                //     this.sortRows();
+                // }
+                //} else {
             }
+                var targetRowIndex = this.rows.indexOf(targetRow);
+                var rowIndex = this.rows.indexOf(row);
 
-            var targetRowIndex = this.rows.indexOf(targetRow);
-            var rowIndex = this.rows.indexOf(row);
+                if (targetRowIndex > -1 && rowIndex > -1 && targetRowIndex !== rowIndex) {
+                    arrays.moveToIndex(this.rows, rowIndex, targetRowIndex);
+                    arrays.moveToIndex(this.rowsTaskWatchers, rowIndex, targetRowIndex);
+                    arrays.moveToIndex(this.gantt.$scope.data, rowIndex, targetRowIndex);
 
-            if (targetRowIndex > -1 && rowIndex > -1 && targetRowIndex !== rowIndex) {
-                arrays.moveToIndex(this.rows, rowIndex, targetRowIndex);
-                arrays.moveToIndex(this.rowsTaskWatchers, rowIndex, targetRowIndex);
-                arrays.moveToIndex(this.gantt.$scope.data, rowIndex, targetRowIndex);
+                    this.gantt.api.rows.raise.change(row);
+                    this.gantt.api.rows.raise.move(row, rowIndex, targetRowIndex);
 
-                this.gantt.api.rows.raise.change(row);
-                this.gantt.api.rows.raise.move(row, rowIndex, targetRowIndex);
-
-                this.updateVisibleObjects();
-                this.sortRows();
-            }
+                    this.updateVisibleObjects();
+                    this.sortRows();
+                }
+                // }
         };
 
         RowsManager.prototype.updateVisibleObjects = function() {

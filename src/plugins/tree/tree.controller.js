@@ -22,10 +22,13 @@
 
                     var leaves = [];
                     for (var i = 0; i < sortedRows.length; i++) {
-                        var children = hierarchy.children(sortedRows[i]);
-                        if (!children || children.length === 0) {
+                        // var children = hierarchy.children(sortedRows[i]);
+                        // if (!children || children.length === 0) {
+                        //     debugger;
                             leaves.push(sortedRows[i]);
-                        }
+                        // }else{
+                        //     debugger;
+                        // }
                     }
 
                     var filteredLeaves = $filter('filter')(leaves, filterRow, filterRowComparator);
