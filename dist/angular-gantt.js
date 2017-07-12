@@ -5281,7 +5281,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                 restrict: 'A',
                 link: function (scope, element, attrs) {
                     var setNewBackgroundStyle = debounce(function (newStyles) {
-                        console.count('setNewBackgroundStyle');
+                        // console.count('setNewBackgroundStyle');
                         element.css('backgroundColor',newStyles);
                     }, 150);
 
