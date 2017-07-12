@@ -25,7 +25,7 @@
                 <gantt-row-background ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id"></gantt-row-background>
             </gantt-body-background>
             <gantt-body-foreground>
-                <div class="gantt-current-date-line" ng-show="currentDate === 'line' && gantt.currentDateManager.position >= 0 && gantt.currentDateManager.position <= gantt.width" ng-style="{'left': gantt.currentDateManager.position + 'px' }"></div>
+                <div class="gantt-current-date-line" ng-show="currentDate === 'line' && gantt.currentDateManager.position >= 0 && gantt.currentDateManager.position <= gantt.width" gantt-style="{'left': gantt.currentDateManager.position + 'px' }"></div>
             </gantt-body-foreground>
             <gantt-body-columns>
                 <gantt-column ng-repeat="column in gantt.columnsManager.visibleColumns">
@@ -54,7 +54,7 @@
 
     <!-- Body template -->
     <script type="text/ng-template" id="template/ganttBody.tmpl.html">
-        <div ng-transclude class="gantt-body" ng-style="{'width': gantt.width > 0 ? gantt.width +'px' : undefined}"></div>
+        <div ng-transclude class="gantt-body" gantt-style="{'width': gantt.width > 0 ? gantt.width +'px' : undefined}"></div>
     </script>
 
     <!-- Header template -->
@@ -109,11 +109,11 @@
 
     <!-- Scrollable template -->
     <script type="text/ng-template" id="template/ganttScrollable.tmpl.html">
-        <div ng-transclude class="gantt-scrollable" gantt-scroll-sender ng-style="getScrollableCss()"></div>
+        <div ng-transclude class="gantt-scrollable" gantt-scroll-sender gantt-style="getScrollableCss()"></div>
     </script>
 
     <script type="text/ng-template" id="template/ganttScrollableHeader.tmpl.html">
-        <div ng-transclude class="gantt-scrollable-header" ng-style="getScrollableHeaderCss()"></div>
+        <div ng-transclude class="gantt-scrollable-header" gantt-style="getScrollableHeaderCss()"></div>
     </script>
 
     <!-- Rows template -->
@@ -137,13 +137,13 @@
     </script>
 
     <script type="text/ng-template" id="template/ganttTaskBackground.tmpl.html">
-        <div class="gantt-task-background" ng-style="{'background-color': task.model.color}"></div>
+        <div class="gantt-task-background" gantt-background-style="task.model.color"></div>
     </script>
 
     <script type="text/ng-template" id="template/ganttTaskForeground.tmpl.html">
         <div class="gantt-task-foreground">
-            <div ng-if="task.truncatedRight" class="gantt-task-truncated-right" ng-style="{'padding-right': task.truncatedRightOffset + 'px'}">&gt;</div>
-            <div ng-if="task.truncatedLeft" class="gantt-task-truncated-left" ng-style="{'padding-left': task.truncatedLeftOffset + 'px'}">&lt;</div>
+            <div ng-if="task.truncatedRight" class="gantt-task-truncated-right" gantt-style="{'padding-right': task.truncatedRightOffset + 'px'}">&gt;</div>
+            <div ng-if="task.truncatedLeft" class="gantt-task-truncated-left" gantt-style="{'padding-left': task.truncatedLeftOffset + 'px'}">&lt;</div>
         </div>
     </script>
 
@@ -157,7 +157,7 @@
     <script type="text/ng-template" id="template/ganttRowBackground.tmpl.html">
         <div class="gantt-row gantt-row-height {{::row.model.classes}}">
             <div class="gantt-row-background"
-                 ng-style="{'background-color': row.model.color}">
+                 gantt-background-style="row.model.color">
             </div>
         </div>
     </script>
@@ -172,15 +172,15 @@
     <!-- Side background template -->
     <script type="text/ng-template" id="template/ganttSideBackground.tmpl.html">
         <div class="gantt-side-background">
-            <div class="gantt-side-background-header" ng-style="{height: $parent.ganttHeaderHeight + 'px'}">
+            <div class="gantt-side-background-header" gantt-style="{height: $parent.ganttHeaderHeight + 'px'}">
                 <div ng-show="$parent.ganttHeaderHeight" class="gantt-header-row gantt-side-header-row"></div>
             </div>
-            <div class="gantt-side-background-body" ng-style="getMaxHeightCss()">
+            <div class="gantt-side-background-body" gantt-style="getMaxHeightCssBg()">
                 <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>
                     <div class="gantt-row gantt-row-height {{::row.model.classes}}"
                          ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id">
                         <div class="gantt-row-label gantt-row-background"
-                             ng-style="{'background-color': row.model.color}">
+                             gantt-background-style="row.model.color">
                         </div>
                     </div>
                 </div>

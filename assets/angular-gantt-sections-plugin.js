@@ -307,7 +307,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
 angular.module('gantt.sections.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/sections/taskSection.tmpl.html',
-        '<div ng-style="sectionCss" ng-class="section.classes" class="gantt-task-section"></div>');
+        '<div gantt-style="sectionCss" ng-class="section.classes" class="gantt-task-section"></div>');
     $templateCache.put('plugins/sections/taskSections.tmpl.html',
         '<div ng-cloak class="gantt-task-sections"><gantt-task-section section="section" task="task" options="task.model.sections" index="$index" ng-repeat="section in task.model.sections.items track by $index"></gantt-task-section></div>');
 }]);

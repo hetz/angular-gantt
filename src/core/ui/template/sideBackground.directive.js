@@ -5,7 +5,7 @@
         builder.controller = function($scope) {
             // var hScrollBarHeight = layout.getScrollBarHeight();
 
-            $scope.getMaxHeightCss = function() {
+            $scope.getMaxHeightCssBg = function() {
                 var css = {};
 
                 if ($scope.maxHeight) {

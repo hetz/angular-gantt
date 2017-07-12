@@ -5,7 +5,7 @@
         builder.controller = function($scope) {
             // var hScrollBarHeight = layout.getScrollBarHeight();
 
-            $scope.getMaxHeightCss = function() {
+            $scope.getMaxHeightCssTable = function() {
                 var css = {};
 
                 if ($scope.maxHeight) {
@@ -13,7 +13,6 @@
                     css['max-height'] = $scope.maxHeight - $scope.gantt.header.getHeight() + 'px';
                     // css['max-height'] = $scope.maxHeight - bodyScrollBarHeight - $scope.gantt.header.getHeight() + 'px';
                 }
-
                 return css;
             };
         };

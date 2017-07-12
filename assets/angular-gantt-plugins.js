@@ -3389,7 +3389,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
         builder.controller = function($scope) {
             // var hScrollBarHeight = layout.getScrollBarHeight();
 
-            $scope.getMaxHeightCss = function() {
+            $scope.getMaxHeightCssTable = function() {
                 var css = {};
 
                 if ($scope.maxHeight) {
@@ -3397,7 +3397,6 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                     css['max-height'] = $scope.maxHeight - $scope.gantt.header.getHeight() + 'px';
                     // css['max-height'] = $scope.maxHeight - bodyScrollBarHeight - $scope.gantt.header.getHeight() + 'px';
                 }
-
                 return css;
             };
         };
@@ -4039,7 +4038,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
 angular.module('gantt.bounds.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/bounds/taskBounds.tmpl.html',
-        '<div ng-cloak class="gantt-task-bounds" ng-style="getCss()" ng-class="getClass()"></div>');
+        '<div ng-cloak class="gantt-task-bounds" gantt-style="getCss()" ng-class="getClass()"></div>');
 }]);
 
 angular.module('gantt.corner.templates', []).run(['$templateCache', function ($templateCache) {
@@ -4057,14 +4056,14 @@ angular.module('gantt.drawtask.templates', []).run(['$templateCache', function (
 
 angular.module('gantt.groups.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/groups/taskGroup.tmpl.html',
-        '<div ng-controller="GanttGroupController"><div class="gantt-task-group-overview" ng-if="taskGroup.overviewTasks.length > 0"><gantt-task-overview ng-repeat="task in taskGroup.overviewTasks"></gantt-task-overview></div><div class="gantt-task-group-promote" ng-if="taskGroup.row._collapsed && taskGroup.promotedTasks.length > 0"><gantt-task ng-repeat="task in taskGroup.promotedTasks"></gantt-task></div><div class="gantt-task-group" ng-if="taskGroup.showGrouping" ng-style="{\'left\': taskGroup.left + \'px\', \'width\': taskGroup.width + \'px\'}"><div class="gantt-task-group-left-main"></div><div class="gantt-task-group-right-main"></div><div class="gantt-task-group-left-symbol"></div><div class="gantt-task-group-right-symbol"></div></div></div>');
+        '<div ng-controller="GanttGroupController"><div class="gantt-task-group-overview" ng-if="taskGroup.overviewTasks.length > 0"><gantt-task-overview ng-repeat="task in taskGroup.overviewTasks"></gantt-task-overview></div><div class="gantt-task-group-promote" ng-if="taskGroup.row._collapsed && taskGroup.promotedTasks.length > 0"><gantt-task ng-repeat="task in taskGroup.promotedTasks"></gantt-task></div><div class="gantt-task-group" ng-if="taskGroup.showGrouping" gantt-style="{\'left\': taskGroup.left + \'px\', \'width\': taskGroup.width + \'px\'}"><div class="gantt-task-group-left-main"></div><div class="gantt-task-group-right-main"></div><div class="gantt-task-group-left-symbol"></div><div class="gantt-task-group-right-symbol"></div></div></div>');
     $templateCache.put('plugins/groups/taskOverview.tmpl.html',
         '<div class="gantt-task gantt-task-overview {{::task.model.classes}}"><gantt-task-background></gantt-task-background><gantt-task-content></gantt-task-content><gantt-task-foreground></gantt-task-foreground></div>');
 }]);
 
 angular.module('gantt.labels.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/labels/labelsBody.tmpl.html',
-        '<div class="gantt-labels-body" ng-style="getLabelsCss()"><div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver><div ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id"><div gantt-row-label class="gantt-row-label gantt-row-height {{::row.model.classes}}"><span class="gantt-label-text">{{row.model.name}}</span></div></div></div></div>');
+        '<div class="gantt-labels-body" gantt-style="getLabelsCss()"><div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver><div ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id"><div gantt-row-label class="gantt-row-label gantt-row-height {{::row.model.classes}}"><span class="gantt-label-text">{{row.model.name}}</span></div></div></div></div>');
     $templateCache.put('plugins/labels/labelsHeader.tmpl.html',
         '<div class="gantt-labels-header"><div ng-show="gantt.columnsManager.columns.length > 0 && gantt.columnsManager.headers.length > 0"><div ng-repeat="header in gantt.columnsManager.headers"><div class="gantt-row-height" ng-class="{\'gantt-labels-header-row\': $last, \'gantt-labels-header-row-last\': $last}"><span>{{$last ? pluginScope.header : ""}}</span></div></div></div></div>');
     $templateCache.put('plugins/labels/sideContentLabels.tmpl.html',
@@ -4081,7 +4080,7 @@ angular.module('gantt.overlap.templates', []).run(['$templateCache', function ($
 
 angular.module('gantt.progress.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/progress/taskProgress.tmpl.html',
-        '<div ng-cloak class="gantt-task-progress" ng-style="getCss()" ng-class="getClasses()"></div>');
+        '<div ng-cloak class="gantt-task-progress" gantt-style="getCss()" ng-class="getClasses()"></div>');
 }]);
 
 angular.module('gantt.resizeSensor.templates', []).run(['$templateCache', function ($templateCache) {
@@ -4090,7 +4089,7 @@ angular.module('gantt.resizeSensor.templates', []).run(['$templateCache', functi
 
 angular.module('gantt.sections.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/sections/taskSection.tmpl.html',
-        '<div ng-style="sectionCss" ng-class="section.classes" class="gantt-task-section"></div>');
+        '<div gantt-style="sectionCss" ng-class="section.classes" class="gantt-task-section"></div>');
     $templateCache.put('plugins/sections/taskSections.tmpl.html',
         '<div ng-cloak class="gantt-task-sections"><gantt-task-section section="section" task="task" options="task.model.sections" index="$index" ng-repeat="section in task.model.sections.items track by $index"></gantt-task-section></div>');
 }]);
@@ -4101,23 +4100,23 @@ angular.module('gantt.sortable.templates', []).run(['$templateCache', function (
 
 angular.module('gantt.table.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/table/sideContentTable.tmpl.html',
-        '<div class="gantt-side-content-table"><div class="gantt-table-column {{getClass()}}" ng-repeat="column in pluginScope.columns" ng-controller="TableColumnController"><div class="gantt-table-header" ng-style="{height: ganttHeaderHeight + \'px\'}"><div ng-show="ganttHeaderHeight" class="gantt-row-label-header gantt-row-label gantt-table-row gantt-table-header-row"><span class="gantt-label-text" gantt-bind-once-compile-html="getHeaderContent()"></div></div><div class="gantt-table-content" ng-style="getMaxHeightCss()"><div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver><div class="gantt-table-row" ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id" ng-controller="TableColumnRowController"><div gantt-row-label class="gantt-row-label gantt-row-height {{::row.model.classes}}"><span class="gantt-label-text" gantt-bind-once-compile-html="getRowContent();"></span></div></div></div></div></div></div>');
+        '<div class="gantt-side-content-table"><div class="gantt-table-column {{getClass()}}" ng-repeat="column in pluginScope.columns" ng-controller="TableColumnController"><div class="gantt-table-header" gantt-style="{height: ganttHeaderHeight + \'px\'}"><div ng-show="ganttHeaderHeight" class="gantt-row-label-header gantt-row-label gantt-table-row gantt-table-header-row"><span class="gantt-label-text" gantt-bind-once-compile-html="getHeaderContent()"></div></div><div class="gantt-table-content" gantt-style="getMaxHeightCssTable()"><div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver><div class="gantt-table-row" ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id" ng-controller="TableColumnRowController"><div gantt-row-label class="gantt-row-label gantt-row-height {{::row.model.classes}}"><span class="gantt-label-text" gantt-bind-once-compile-html="getRowContent();"></span></div></div></div></div></div></div>');
 }]);
 
 angular.module('gantt.tooltips.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/tooltips/tooltip.tmpl.html',
-        '<div ng-cloak class="gantt-task-info" ng-show="displayed" ng-class="isRightAligned ? \'gantt-task-infoArrowR\' : \'gantt-task-infoArrow\'" ng-style="{top: taskRect.top + \'px\', marginTop: -elementHeight - 8 + \'px\'}"><div class="gantt-task-info-content"><div gantt-bind-compile-html="content"></div></div></div>');
+        '<div ng-cloak class="gantt-task-info" ng-show="displayed" ng-class="isRightAligned ? \'gantt-task-infoArrowR\' : \'gantt-task-infoArrow\'" gantt-style="{top: taskRect.top + \'px\', marginTop: -elementHeight - 8 + \'px\'}"><div class="gantt-task-info-content"><div gantt-bind-compile-html="content"></div></div></div>');
 }]);
 
 angular.module('gantt.tree.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/tree/sideContentTree.tmpl.html',
         '<div class="gantt-side-content-tree" ng-controller="GanttTreeController"><gantt-tree-header></gantt-tree-header><gantt-tree-body></gantt-tree-body></div>');
     $templateCache.put('plugins/tree/treeBody.tmpl.html',
-        '<div class="gantt-tree-body" ng-style="getLabelsCss()"><div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver><div class="gantt-row-label-background"><div class="gantt-row-label gantt-row-height {{::row.model.classes}}" ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id">&nbsp;</div></div><div ui-tree ng-controller="GanttUiTreeController" data-drag-enabled="false" data-empty-place-holder-enabled="false"><ol class="gantt-tree-root" ui-tree-nodes ng-model="rootRows"><li ng-repeat="row in rootRows track by row.model.id" ui-tree-node data-collapsed="toCollapse(row)" ng-include="\'plugins/tree/treeBodyChildren.tmpl.html\'"></li></ol></div></div></div>');
+        '<div class="gantt-tree-body" gantt-style="getLabelsCss()"><div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver><div class="gantt-row-label-background"><div class="gantt-row-label gantt-row-height {{::row.model.classes}}" ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id">&nbsp;</div></div><div ui-tree ng-controller="GanttUiTreeController" data-drag-enabled="false" data-empty-place-holder-enabled="false"><ol class="gantt-tree-root" ui-tree-nodes ng-model="rootRows"><li ng-repeat="row in rootRows track by row.model.id" ui-tree-node data-collapsed="toCollapse(row)" ng-include="\'plugins/tree/treeBodyChildren.tmpl.html\'"></li></ol></div></div></div>');
     $templateCache.put('plugins/tree/treeBodyChildren.tmpl.html',
         '<div ng-controller="GanttTreeNodeController" class="gantt-row-label gantt-row-height {{::row.model.classes}}"><a ng-if="childrenRows!=null" ng-disabled="isCollapseDisabled()" data-nodrag class="gantt-tree-handle-button btn btn-xs" ng-click="!isCollapseDisabled() && toggle()"><span class="gantt-tree-handle fa fa-fw fa-caret-down" ng-class="{\'fa-caret-right\': collapsed, \'fa-caret-down\': !collapsed}"></span> </a><span gantt-row-label class="gantt-label-text" gantt-bind-once-compile-html="getRowContent()"></div><ol ng-if="childrenRows!=null" ui-tree-nodes ng-class="{hidden: collapsed}" ng-model="childrenRows"><li ng-repeat="row in childrenRows track by row.model.id" ui-tree-node data-collapsed="false"><div ng-include="\'plugins/tree/treeBodyChildren.tmpl.html\'"></div></li></ol>');
     $templateCache.put('plugins/tree/treeHeader.tmpl.html',
-        '<div class="gantt-tree-header" ng-style="{height: $parent.ganttHeaderHeight + \'px\'}"><div ng-if="$parent.ganttHeaderHeight" class="gantt-row-label gantt-row-label-header gantt-tree-row gantt-tree-header-row"><span class="gantt-label-text" gantt-bind-once-compile-html="getHeaderContent()"></div></div>');
+        '<div class="gantt-tree-header" gantt-style="{height: $parent.ganttHeaderHeight + \'px\'}"><div ng-if="$parent.ganttHeaderHeight" class="gantt-row-label gantt-row-label-header gantt-tree-row gantt-tree-header-row"><span class="gantt-label-text" gantt-bind-once-compile-html="getHeaderContent()"></div></div>');
 }]);
 
 //# sourceMappingURL=angular-gantt-plugins.js.map

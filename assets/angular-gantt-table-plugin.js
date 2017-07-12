@@ -91,7 +91,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
         builder.controller = function($scope) {
             // var hScrollBarHeight = layout.getScrollBarHeight();
 
-            $scope.getMaxHeightCss = function() {
+            $scope.getMaxHeightCssTable = function() {
                 var css = {};
 
                 if ($scope.maxHeight) {
@@ -99,7 +99,6 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                     css['max-height'] = $scope.maxHeight - $scope.gantt.header.getHeight() + 'px';
                     // css['max-height'] = $scope.maxHeight - bodyScrollBarHeight - $scope.gantt.header.getHeight() + 'px';
                 }
-
                 return css;
             };
         };
@@ -182,7 +181,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
 angular.module('gantt.table.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/table/sideContentTable.tmpl.html',
-        '<div class="gantt-side-content-table"><div class="gantt-table-column {{getClass()}}" ng-repeat="column in pluginScope.columns" ng-controller="TableColumnController"><div class="gantt-table-header" ng-style="{height: ganttHeaderHeight + \'px\'}"><div ng-show="ganttHeaderHeight" class="gantt-row-label-header gantt-row-label gantt-table-row gantt-table-header-row"><span class="gantt-label-text" gantt-bind-once-compile-html="getHeaderContent()"></div></div><div class="gantt-table-content" ng-style="getMaxHeightCss()"><div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver><div class="gantt-table-row" ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id" ng-controller="TableColumnRowController"><div gantt-row-label class="gantt-row-label gantt-row-height {{::row.model.classes}}"><span class="gantt-label-text" gantt-bind-once-compile-html="getRowContent();"></span></div></div></div></div></div></div>');
+        '<div class="gantt-side-content-table"><div class="gantt-table-column {{getClass()}}" ng-repeat="column in pluginScope.columns" ng-controller="TableColumnController"><div class="gantt-table-header" gantt-style="{height: ganttHeaderHeight + \'px\'}"><div ng-show="ganttHeaderHeight" class="gantt-row-label-header gantt-row-label gantt-table-row gantt-table-header-row"><span class="gantt-label-text" gantt-bind-once-compile-html="getHeaderContent()"></div></div><div class="gantt-table-content" gantt-style="getMaxHeightCssTable()"><div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver><div class="gantt-table-row" ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id" ng-controller="TableColumnRowController"><div gantt-row-label class="gantt-row-label gantt-row-height {{::row.model.classes}}"><span class="gantt-label-text" gantt-bind-once-compile-html="getRowContent();"></span></div></div></div></div></div></div>');
 }]);
 
 //# sourceMappingURL=angular-gantt-table-plugin.js.map

@@ -4926,7 +4926,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
         builder.controller = function($scope) {
             // var hScrollBarHeight = layout.getScrollBarHeight();
 
-            $scope.getMaxHeightCss = function() {
+            $scope.getMaxHeightCssBg = function() {
                 var css = {};
 
                 if ($scope.maxHeight) {
@@ -5273,6 +5273,60 @@ Github: https://github.com/angular-gantt/angular-gantt.git
     }]);
 }());
 
+(function () {
+    'use strict';
+    angular.module('gantt')
+        .directive('ganttBackgroundStyle', ['ganttDebounce', function (debounce) {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                    var setNewBackgroundStyle = debounce(function (newStyles) {
+                        console.count('setNewBackgroundStyle');
+                        element.css('backgroundColor',newStyles);
+                    }, 150);
+
+                    scope.$watch(attrs.ganttBackgroundStyle, function ngStyleWatchAction(newStyles, oldStyles) {
+                        // if (oldStyles && (newStyles !== oldStyles)) {
+                        //     resetOldStyle(oldStyles);
+                        // }
+                        if (newStyles != null) {
+                            setNewBackgroundStyle(newStyles);
+                        }
+                    });
+                }
+            };
+        }])
+        .directive('ganttStyle', ['ganttDebounce', function (debounce) {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                    // var resetOldStyle = debounce(function (oldStyles) {
+                    //     console.count('resetOldStyle');
+                    //     angular.forEach(oldStyles, function (val, style) {
+                    //         element.css(style, '');
+                    //     });
+                    // }, 200);
+
+                    var setNewStyle = debounce(function (newStyles) {
+                        // console.count(element.attr('class'))
+                        // console.count('    ' + _.keys(newStyles));
+                        // console.count('    ' + _.values(newStyles));
+                        element.css(newStyles);
+                    }, 150);
+
+                    scope.$watch(attrs.ganttStyle, function ngStyleWatchAction(newStyles, oldStyles) {
+                        // if (oldStyles && (newStyles !== oldStyles)) {
+                        //     resetOldStyle(oldStyles);
+                        // }
+                        if (newStyles && Object.keys(newStyles).length !== 0) {
+                            setNewStyle(newStyles);
+                        }
+                    }, true);
+                }
+            };
+        }]);
+}());
+
 (function(){
     'use strict';
     angular.module('gantt').service('ganttLayout', ['$document', function($document) {
@@ -5452,33 +5506,33 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
 angular.module('gantt.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('template/gantt.tmpl.html',
-        '<div class="gantt unselectable" ng-cloak gantt-event-manager gantt-scroll-manager gantt-element-width-listener="ganttElementWidth"><gantt-side><gantt-side-background></gantt-side-background><gantt-side-content></gantt-side-content><div gantt-resizer="gantt.side.$element" gantt-resizer-event-topic="side" gantt-resizer-enabled="{{$parent.gantt.options.value(\'allowSideResizing\')}}" resizer-width="sideWidth" class="gantt-resizer"><div ng-show="$parent.gantt.options.value(\'allowSideResizing\')" class="gantt-resizer-display"></div></div></gantt-side><gantt-scrollable-header><gantt-header gantt-element-height-listener="$parent.ganttHeaderHeight"><gantt-header-columns><div ng-repeat="header in gantt.columnsManager.visibleHeaders track by $index"><div class="gantt-header-row" ng-class="{\'gantt-header-row-last\': $last, \'gantt-header-row-first\': $first}"><gantt-column-header ng-repeat="column in header"></gantt-column-header></div></div></gantt-header-columns></gantt-header></gantt-scrollable-header><gantt-scrollable><gantt-body><gantt-body-background><gantt-row-background ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id"></gantt-row-background></gantt-body-background><gantt-body-foreground><div class="gantt-current-date-line" ng-show="currentDate === \'line\' && gantt.currentDateManager.position >= 0 && gantt.currentDateManager.position <= gantt.width" ng-style="{\'left\': gantt.currentDateManager.position + \'px\' }"></div></gantt-body-foreground><gantt-body-columns><gantt-column ng-repeat="column in gantt.columnsManager.visibleColumns"><gantt-time-frame ng-repeat="timeFrame in column.visibleTimeFrames"></gantt-time-frame></gantt-column></gantt-body-columns><div ng-if="gantt.columnsManager.visibleColumns == 0" style="background-color: #808080"></div><gantt-body-rows><gantt-timespan ng-repeat="timespan in gantt.timespansManager.timespans track by timespan.model.id"></gantt-timespan><gantt-row ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id"><gantt-task ng-repeat="task in row.visibleTasks track by task.model.id"></gantt-task></gantt-row></gantt-body-rows></gantt-body></gantt-scrollable><ng-transclude></ng-transclude><script type="text/ng-template" id="template/ganttBody.tmpl.html"><div ng-transclude class="gantt-body" ng-style="{\'width\': gantt.width > 0 ? gantt.width +\'px\' : undefined}"></div></script><script type="text/ng-template" id="template/ganttHeader.tmpl.html"><div ng-transclude class="gantt-header"\n' +
+        '<div class="gantt unselectable" ng-cloak gantt-event-manager gantt-scroll-manager gantt-element-width-listener="ganttElementWidth"><gantt-side><gantt-side-background></gantt-side-background><gantt-side-content></gantt-side-content><div gantt-resizer="gantt.side.$element" gantt-resizer-event-topic="side" gantt-resizer-enabled="{{$parent.gantt.options.value(\'allowSideResizing\')}}" resizer-width="sideWidth" class="gantt-resizer"><div ng-show="$parent.gantt.options.value(\'allowSideResizing\')" class="gantt-resizer-display"></div></div></gantt-side><gantt-scrollable-header><gantt-header gantt-element-height-listener="$parent.ganttHeaderHeight"><gantt-header-columns><div ng-repeat="header in gantt.columnsManager.visibleHeaders track by $index"><div class="gantt-header-row" ng-class="{\'gantt-header-row-last\': $last, \'gantt-header-row-first\': $first}"><gantt-column-header ng-repeat="column in header"></gantt-column-header></div></div></gantt-header-columns></gantt-header></gantt-scrollable-header><gantt-scrollable><gantt-body><gantt-body-background><gantt-row-background ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id"></gantt-row-background></gantt-body-background><gantt-body-foreground><div class="gantt-current-date-line" ng-show="currentDate === \'line\' && gantt.currentDateManager.position >= 0 && gantt.currentDateManager.position <= gantt.width" gantt-style="{\'left\': gantt.currentDateManager.position + \'px\' }"></div></gantt-body-foreground><gantt-body-columns><gantt-column ng-repeat="column in gantt.columnsManager.visibleColumns"><gantt-time-frame ng-repeat="timeFrame in column.visibleTimeFrames"></gantt-time-frame></gantt-column></gantt-body-columns><div ng-if="gantt.columnsManager.visibleColumns == 0" style="background-color: #808080"></div><gantt-body-rows><gantt-timespan ng-repeat="timespan in gantt.timespansManager.timespans track by timespan.model.id"></gantt-timespan><gantt-row ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id"><gantt-task ng-repeat="task in row.visibleTasks track by task.model.id"></gantt-task></gantt-row></gantt-body-rows></gantt-body></gantt-scrollable><ng-transclude></ng-transclude><script type="text/ng-template" id="template/ganttBody.tmpl.html"><div ng-transclude class="gantt-body" gantt-style="{\'width\': gantt.width > 0 ? gantt.width +\'px\' : undefined}"></div></script><script type="text/ng-template" id="template/ganttHeader.tmpl.html"><div ng-transclude class="gantt-header"\n' +
         '             ng-show="gantt.columnsManager.columns.length > 0 && gantt.columnsManager.headers.length > 0"></div></script><script type="text/ng-template" id="template/ganttSide.tmpl.html"><div ng-transclude class="gantt-side" style="width: auto;"></div></script><script type="text/ng-template" id="template/ganttSideContent.tmpl.html"><div class="gantt-side-content">\n' +
         '        </div></script><script type="text/ng-template" id="template/ganttHeaderColumns.tmpl.html"><div ng-transclude class="gantt-header-columns gantt-scrollable--receiver-horizontal"\n' +
-        '              gantt-horizontal-scroll-receiver></div></script><script type="text/ng-template" id="template/ganttColumnHeader.tmpl.html"><div class="gantt-column-header" ng-class="{\'gantt-column-header-last\': $last, \'gantt-column-header-first\': $first}">{{::column.label}}</div></script><script type="text/ng-template" id="template/ganttBodyBackground.tmpl.html"><div ng-transclude class="gantt-body-background"></div></script><script type="text/ng-template" id="template/ganttBodyForeground.tmpl.html"><div ng-transclude class="gantt-body-foreground"></div></script><script type="text/ng-template" id="template/ganttBodyColumns.tmpl.html"><div ng-transclude class="gantt-body-columns"></div></script><script type="text/ng-template" id="template/ganttColumn.tmpl.html"><div ng-transclude class="gantt-column gantt-foreground-col" ng-class="{\'gantt-column-last\': $last, \'gantt-column-first\': $first}"></div></script><script type="text/ng-template" id="template/ganttTimeFrame.tmpl.html"><div class="gantt-timeframe"></div></script><script type="text/ng-template" id="template/ganttScrollable.tmpl.html"><div ng-transclude class="gantt-scrollable" gantt-scroll-sender ng-style="getScrollableCss()"></div></script><script type="text/ng-template" id="template/ganttScrollableHeader.tmpl.html"><div ng-transclude class="gantt-scrollable-header" ng-style="getScrollableHeaderCss()"></div></script><script type="text/ng-template" id="template/ganttBodyRows.tmpl.html"><div ng-transclude class="gantt-body-rows"></div></script><script type="text/ng-template" id="template/ganttTimespan.tmpl.html"><div class="gantt-timespan" ng-class="timespan.model.classes">\n' +
+        '              gantt-horizontal-scroll-receiver></div></script><script type="text/ng-template" id="template/ganttColumnHeader.tmpl.html"><div class="gantt-column-header" ng-class="{\'gantt-column-header-last\': $last, \'gantt-column-header-first\': $first}">{{::column.label}}</div></script><script type="text/ng-template" id="template/ganttBodyBackground.tmpl.html"><div ng-transclude class="gantt-body-background"></div></script><script type="text/ng-template" id="template/ganttBodyForeground.tmpl.html"><div ng-transclude class="gantt-body-foreground"></div></script><script type="text/ng-template" id="template/ganttBodyColumns.tmpl.html"><div ng-transclude class="gantt-body-columns"></div></script><script type="text/ng-template" id="template/ganttColumn.tmpl.html"><div ng-transclude class="gantt-column gantt-foreground-col" ng-class="{\'gantt-column-last\': $last, \'gantt-column-first\': $first}"></div></script><script type="text/ng-template" id="template/ganttTimeFrame.tmpl.html"><div class="gantt-timeframe"></div></script><script type="text/ng-template" id="template/ganttScrollable.tmpl.html"><div ng-transclude class="gantt-scrollable" gantt-scroll-sender gantt-style="getScrollableCss()"></div></script><script type="text/ng-template" id="template/ganttScrollableHeader.tmpl.html"><div ng-transclude class="gantt-scrollable-header" gantt-style="getScrollableHeaderCss()"></div></script><script type="text/ng-template" id="template/ganttBodyRows.tmpl.html"><div ng-transclude class="gantt-body-rows"></div></script><script type="text/ng-template" id="template/ganttTimespan.tmpl.html"><div class="gantt-timespan" ng-class="timespan.model.classes">\n' +
         '        </div></script><script type="text/ng-template" id="template/ganttTask.tmpl.html"><div class="gantt-task {{::task.model.classes}}">\n' +
         '            <gantt-task-background></gantt-task-background>\n' +
         '            <gantt-task-foreground></gantt-task-foreground>\n' +
         '            <gantt-task-content></gantt-task-content>\n' +
-        '        </div></script><script type="text/ng-template" id="template/ganttTaskBackground.tmpl.html"><div class="gantt-task-background" ng-style="{\'background-color\': task.model.color}"></div></script><script type="text/ng-template" id="template/ganttTaskForeground.tmpl.html"><div class="gantt-task-foreground">\n' +
-        '            <div ng-if="task.truncatedRight" class="gantt-task-truncated-right" ng-style="{\'padding-right\': task.truncatedRightOffset + \'px\'}">&gt;</div>\n' +
-        '            <div ng-if="task.truncatedLeft" class="gantt-task-truncated-left" ng-style="{\'padding-left\': task.truncatedLeftOffset + \'px\'}">&lt;</div>\n' +
+        '        </div></script><script type="text/ng-template" id="template/ganttTaskBackground.tmpl.html"><div class="gantt-task-background" gantt-background-style="task.model.color"></div></script><script type="text/ng-template" id="template/ganttTaskForeground.tmpl.html"><div class="gantt-task-foreground">\n' +
+        '            <div ng-if="task.truncatedRight" class="gantt-task-truncated-right" gantt-style="{\'padding-right\': task.truncatedRightOffset + \'px\'}">&gt;</div>\n' +
+        '            <div ng-if="task.truncatedLeft" class="gantt-task-truncated-left" gantt-style="{\'padding-left\': task.truncatedLeftOffset + \'px\'}">&lt;</div>\n' +
         '        </div></script><script type="text/ng-template" id="template/ganttTaskContent.tmpl.html"><div class="gantt-task-content" unselectable="on"><span unselectable="on" gantt-bind-once-compile-html="getTaskContent()"/></div></script><script type="text/ng-template" id="template/ganttRowBackground.tmpl.html"><div class="gantt-row gantt-row-height {{::row.model.classes}}">\n' +
         '            <div class="gantt-row-background"\n' +
-        '                 ng-style="{\'background-color\': row.model.color}">\n' +
+        '                 gantt-background-style="row.model.color">\n' +
         '            </div>\n' +
         '        </div></script><script type="text/ng-template" id="template/ganttRow.tmpl.html"><div class="gantt-row gantt-row-height {{::row.model.classes}}">\n' +
         '            <div ng-transclude class="gantt-row-content"></div>\n' +
         '        </div></script><script type="text/ng-template" id="template/ganttSideBackground.tmpl.html"><div class="gantt-side-background">\n' +
-        '            <div class="gantt-side-background-header" ng-style="{height: $parent.ganttHeaderHeight + \'px\'}">\n' +
+        '            <div class="gantt-side-background-header" gantt-style="{height: $parent.ganttHeaderHeight + \'px\'}">\n' +
         '                <div ng-show="$parent.ganttHeaderHeight" class="gantt-header-row gantt-side-header-row"></div>\n' +
         '            </div>\n' +
-        '            <div class="gantt-side-background-body" ng-style="getMaxHeightCss()">\n' +
+        '            <div class="gantt-side-background-body" gantt-style="getMaxHeightCssBg()">\n' +
         '                <div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver>\n' +
         '                    <div class="gantt-row gantt-row-height {{::row.model.classes}}"\n' +
         '                         ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id">\n' +
         '                        <div class="gantt-row-label gantt-row-background"\n' +
-        '                             ng-style="{\'background-color\': row.model.color}">\n' +
+        '                             gantt-background-style="row.model.color">\n' +
         '                        </div>\n' +
         '                    </div>\n' +
         '                </div>\n' +

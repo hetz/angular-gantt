@@ -119,7 +119,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
 angular.module('gantt.labels.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/labels/labelsBody.tmpl.html',
-        '<div class="gantt-labels-body" ng-style="getLabelsCss()"><div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver><div ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id"><div gantt-row-label class="gantt-row-label gantt-row-height {{::row.model.classes}}"><span class="gantt-label-text">{{row.model.name}}</span></div></div></div></div>');
+        '<div class="gantt-labels-body" gantt-style="getLabelsCss()"><div class="gantt-scrollable--receiver-vertical" gantt-vertical-scroll-receiver><div ng-repeat="row in gantt.rowsManager.visibleRows track by row.model.id"><div gantt-row-label class="gantt-row-label gantt-row-height {{::row.model.classes}}"><span class="gantt-label-text">{{row.model.name}}</span></div></div></div></div>');
     $templateCache.put('plugins/labels/labelsHeader.tmpl.html',
         '<div class="gantt-labels-header"><div ng-show="gantt.columnsManager.columns.length > 0 && gantt.columnsManager.headers.length > 0"><div ng-repeat="header in gantt.columnsManager.headers"><div class="gantt-row-height" ng-class="{\'gantt-labels-header-row\': $last, \'gantt-labels-header-row-last\': $last}"><span>{{$last ? pluginScope.header : ""}}</span></div></div></div></div>');
     $templateCache.put('plugins/labels/sideContentLabels.tmpl.html',
