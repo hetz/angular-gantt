@@ -5,18 +5,20 @@
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-                    var setNewBackgroundStyle = debounce(function (newStyles) {
+                    var setNewBackgroundStyle = function (newStyles) {
+                        //debounce(function (newStyles) {
                         // console.count('setNewBackgroundStyle');
-                        element.css('backgroundColor',newStyles);
-                    }, 150);
+                        if (newStyles != null) {
+                            element.css('backgroundColor', newStyles);
+                        }
+                        // }, 50);
+                    };
 
                     scope.$watch(attrs.ganttBackgroundStyle, function ngStyleWatchAction(newStyles, oldStyles) {
                         // if (oldStyles && (newStyles !== oldStyles)) {
                         //     resetOldStyle(oldStyles);
                         // }
-                        if (newStyles != null) {
-                            setNewBackgroundStyle(newStyles);
-                        }
+                        setNewBackgroundStyle(newStyles);
                     });
                 }
             };
@@ -32,12 +34,14 @@
                     //     });
                     // }, 200);
 
-                    var setNewStyle = debounce(function (newStyles) {
+                    var setNewStyle = function (newStyles) {
+                        //debounce(function (newStyles) {
                         // console.count(element.attr('class'))
                         // console.count('    ' + _.keys(newStyles));
                         // console.count('    ' + _.values(newStyles));
                         element.css(newStyles);
-                    }, 150);
+                        // }, 50);
+                    };
 
                     scope.$watch(attrs.ganttStyle, function ngStyleWatchAction(newStyles, oldStyles) {
                         // if (oldStyles && (newStyles !== oldStyles)) {
