@@ -27,12 +27,12 @@
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-                    // var resetOldStyle = debounce(function (oldStyles) {
-                    //     console.count('resetOldStyle');
-                    //     angular.forEach(oldStyles, function (val, style) {
-                    //         element.css(style, '');
-                    //     });
-                    // }, 200);
+                    var resetOldStyle = function (oldStyles) {
+                        console.count('resetOldStyle:' + _.keys(oldStyles));
+                        angular.forEach(oldStyles, function (val, style) {
+                            element.css(style, '');
+                        });
+                    };
 
                     var setNewStyle = function (newStyles) {
                         //debounce(function (newStyles) {
@@ -44,9 +44,9 @@
                     };
 
                     scope.$watch(attrs.ganttStyle, function ngStyleWatchAction(newStyles, oldStyles) {
-                        // if (oldStyles && (newStyles !== oldStyles)) {
-                        //     resetOldStyle(oldStyles);
-                        // }
+                        if (oldStyles && (newStyles !== oldStyles)) {
+                            resetOldStyle(oldStyles);
+                        }
                         if (newStyles && Object.keys(newStyles).length !== 0) {
                             setNewStyle(newStyles);
                         }
