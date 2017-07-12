@@ -43,6 +43,9 @@
                         var labelFormat = columnsManager.getHeaderFormat(headerName);
 
                         header = new ColumnHeader(currentDate, endDate, viewScaleUnit, currentPosition, width, labelFormat, headerName);
+                        if(header.date.format('x') === moment().startOf('day').format('x')) {
+                            header.currentDate = true;
+                        }
                         generatedHeaders.push(header);
                     }
 
