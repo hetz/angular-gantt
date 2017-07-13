@@ -11,7 +11,7 @@
     <gantt-scrollable-header>
         <gantt-header gantt-element-height-listener="$parent.ganttHeaderHeight">
             <gantt-header-columns>
-                <div class="gantt-header-row"
+                <div class="gantt-header-row {{'gantt-header-row--'+header[0].unit}}"
                      ng-repeat="header in gantt.columnsManager.visibleHeaders track by $index"
                      ng-class="{'gantt-header-row-last': $last, 'gantt-header-row-first': $first}">
                     <gantt-column-header ng-repeat="column in header"></gantt-column-header>
@@ -81,7 +81,7 @@
     </script>
 
     <script type="text/ng-template" id="template/ganttColumnHeader.tmpl.html">
-        <div class="gantt-column-header {{'gantt-column-header--'+column.unit}}" ng-class="{'gantt-column-header--current': column.currentDate, 'gantt-column-header-last': $last, 'gantt-column-header-first': $first}">{{::column.label}}</div>
+        <div class="gantt-column-header" ng-class="{'gantt-column-header--current': column.currentDate, 'gantt-column-header-last': $last, 'gantt-column-header-first': $first}">{{::column.label}}</div>
     </script>
 
     <!-- Body background template -->
