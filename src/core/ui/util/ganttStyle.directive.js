@@ -28,7 +28,7 @@
                 restrict: 'A',
                 link: function (scope, element, attrs) {
                     var resetOldStyle = function (oldStyles) {
-                        console.count('resetOldStyle:' + _.keys(oldStyles));
+                        // console.count('resetOldStyle:' + _.keys(oldStyles));
                         angular.forEach(oldStyles, function (val, style) {
                             element.css(style, '');
                         });
