@@ -43,17 +43,17 @@
                         var labelFormat = columnsManager.getHeaderFormat(headerName);
 
                         header = new ColumnHeader(currentDate, endDate, viewScaleUnit, currentPosition, width, labelFormat, headerName);
-                        switch (header.unit){
+                        // switch (header.unit){
                         //     case 'year':
                         //     case 'quarter':
                         //     case 'month':
                         //     case 'week':
-                            case 'day':
+                        //     case 'day':
                                 if(header.date.format('x') === moment().startOf(header.unit).format('x')) {
                                     header.currentDate = true;
                                 }
-                            break;
-                        }
+                        //     break;
+                        // }
 
                         generatedHeaders.push(header);
                     }

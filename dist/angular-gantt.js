@@ -897,7 +897,8 @@ Github: https://github.com/angular-gantt/angular-gantt.git
             var newColumn;
 
             if (this.date !== undefined && this.gantt.options.value('currentDate') === 'column') {
-                newColumn = this.gantt.columnsManager.getColumnByDate(this.date, true);
+                newColumn = this.gantt.columnsManager.getColumnByDate(this.date, false);
+                //newColumn = this.gantt.columnsManager.getColumnByDate(this.date, true);
             }
             this.currentDateColumn = newColumn;
 
@@ -1953,17 +1954,17 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                         var labelFormat = columnsManager.getHeaderFormat(headerName);
 
                         header = new ColumnHeader(currentDate, endDate, viewScaleUnit, currentPosition, width, labelFormat, headerName);
-                        switch (header.unit){
+                        // switch (header.unit){
                         //     case 'year':
                         //     case 'quarter':
                         //     case 'month':
                         //     case 'week':
-                            case 'day':
+                        //     case 'day':
                                 if(header.date.format('x') === moment().startOf(header.unit).format('x')) {
                                     header.currentDate = true;
                                 }
-                            break;
-                        }
+                        //     break;
+                        // }
 
                         generatedHeaders.push(header);
                     }

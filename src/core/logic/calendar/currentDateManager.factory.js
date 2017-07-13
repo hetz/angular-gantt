@@ -27,7 +27,8 @@
             var newColumn;
 
             if (this.date !== undefined && this.gantt.options.value('currentDate') === 'column') {
-                newColumn = this.gantt.columnsManager.getColumnByDate(this.date, true);
+                newColumn = this.gantt.columnsManager.getColumnByDate(this.date, false);
+                //newColumn = this.gantt.columnsManager.getColumnByDate(this.date, true);
             }
             this.currentDateColumn = newColumn;
 
