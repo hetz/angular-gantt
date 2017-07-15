@@ -1,7 +1,7 @@
-(function(){
+(function () {
     'use strict';
-    angular.module('gantt').service('GanttHeadersGenerator', ['GanttColumnHeader', 'moment', function(ColumnHeader, moment) {
-        var generateHeader = function(columnsManager, headerName) {
+    angular.module('gantt').service('GanttHeadersGenerator', ['GanttColumnHeader', 'moment', function (ColumnHeader, moment) {
+        var generateHeader = function (columnsManager, headerName) {
             var generatedHeaders = [];
             var header;
 
@@ -22,7 +22,7 @@
                 viewScaleUnit = viewScale;
             }
 
-            if(columnsManager.columns.length > 0){
+            if (columnsManager.columns.length > 0) {
                 var currentColumn = columnsManager.columns[0];
                 var currentDate = moment(currentColumn.date).startOf(viewScaleUnit);
 
@@ -43,17 +43,35 @@
                         var labelFormat = columnsManager.getHeaderFormat(headerName);
 
                         header = new ColumnHeader(currentDate, endDate, viewScaleUnit, currentPosition, width, labelFormat, headerName);
-                        // switch (header.unit){
-                        //     case 'year':
-                        //     case 'quarter':
-                        //     case 'month':
-                        //     case 'week':
-                        //     case 'day':
-                                if(header.date.format('x') === moment().startOf(header.unit).format('x')) {
-                                    header.currentDate = true;
-                                }
-                        //     break;
-                        // }
+                        switch (header.unit) {
+                            //     case 'year':
+                            //     case 'quarter':
+                            //     case 'month':
+                            //     case 'week':
+                            case 'day':
+                                var getWeekendFrames = [];
+                                _.map(columnsManager.gantt.options.value('dateFrames'), function (option) {
+                                    if (option.targets === 'weekend' ||
+                                        ( option.targets instanceof Array && option.targets.indexOf('weekend') !== -1)
+                                    ) {
+                                        getWeekendFrames.push(option);
+                                    }
+                                });
+                                _.map(getWeekendFrames, function (option) {
+                                    //TODO:set working?
+                                    // var timeFrames = columnsManager.gantt.options.value('timeFrames');
+                                    if (option.evaluator(header.date)) {
+                                        header.isWeekend = true;
+                                    } else {
+                                        header.isWeekend = false;
+                                    }
+                                });
+                                break;
+                        }
+                        if (header.date.format('x') === moment().startOf(header.unit).format('x')) {
+                            header.currentDate = true;
+                        }
+
 
                         generatedHeaders.push(header);
                     }
@@ -71,7 +89,7 @@
             return generatedHeaders;
         };
 
-        this.generate = function(columnsManager) {
+        this.generate = function (columnsManager) {
             var headerNames = [];
             if (columnsManager.gantt.options.value('headers') === undefined) {
                 var viewScale = columnsManager.gantt.options.value('viewScale');
@@ -92,7 +110,7 @@
                     viewScaleUnit = viewScale;
                 }
 
-                if (['quarter','month'].indexOf(viewScaleUnit) > -1) {
+                if (['quarter', 'month'].indexOf(viewScaleUnit) > -1) {
                     headerNames.push('year');
                 }
                 if (['day', 'week'].indexOf(viewScaleUnit) > -1) {
@@ -116,7 +134,7 @@
             }
 
             var headers = [];
-            for (var i=0; i<headerNames.length; i++) {
+            for (var i = 0; i < headerNames.length; i++) {
                 headers.push(generateHeader(columnsManager, headerNames[i]));
             }
 
