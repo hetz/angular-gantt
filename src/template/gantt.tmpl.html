@@ -81,7 +81,10 @@
     </script>
 
     <script type="text/ng-template" id="template/ganttColumnHeader.tmpl.html">
-        <div class="gantt-column-header" ng-class="{'gantt-column-header--current': column.currentDate, 'gantt-column-header--weekend': column.isWeekend, 'gantt-column-header-last': $last, 'gantt-column-header-first': $first}">{{::column.label}}</div>
+        <div class="gantt-column-header" ng-class="{'gantt-column-header--current': column.currentDate, 'gantt-column-header--weekend': column.isWeekend, 'gantt-column-header-last': $last, 'gantt-column-header-first': $first}">
+            <span class="gantt-column-header-label"
+                  ng-class="['gantt-column-header-label_'+column.date.format('YYYYMM')]">{{::column.label}}</span>
+        </div>
     </script>
 
     <!-- Body background template -->
