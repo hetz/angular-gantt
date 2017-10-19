@@ -159,7 +159,7 @@
             }
 
             var rowScope = $scope.nodeScopes[row.model.id];
-            if (rowScope.collapsed) {
+            if (rowScope && rowScope.collapsed) {
                 rowScope.toggle();
             }
         };
@@ -176,7 +176,7 @@
             }
 
             var rowScope = $scope.nodeScopes[row.model.id];
-            if (!rowScope.collapsed) {
+            if (rowScope && !rowScope.collapsed) {
                 rowScope.toggle();
             }
         };

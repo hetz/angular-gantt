@@ -3873,7 +3873,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
             }
 
             var rowScope = $scope.nodeScopes[row.model.id];
-            if (rowScope.collapsed) {
+            if (rowScope && rowScope.collapsed) {
                 rowScope.toggle();
             }
         };
@@ -3890,7 +3890,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
             }
 
             var rowScope = $scope.nodeScopes[row.model.id];
-            if (!rowScope.collapsed) {
+            if (rowScope && !rowScope.collapsed) {
                 rowScope.toggle();
             }
         };
